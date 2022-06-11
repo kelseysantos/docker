@@ -6,7 +6,7 @@ Em breve vou começar o meu projeto Docker.
 | NETWORK       | VLAN    | Nome VLAN   | HOSTANAME                     | Endereço de IP  |
 | - | - | - | - | - |
 | dchp          | bridge  | networkred  | firewall.servicos.cuiaba.br   | `dhcp`          |
-| x | - | - | - | - |
+| = | = | = | = | = |
 | 10.1.10.0/24  | 10      | 1010 | samba.servicos.cuiaba.br             | `10.1.10.10`    |
 
 # Rede Social
