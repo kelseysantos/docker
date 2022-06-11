@@ -3,9 +3,9 @@ Projetos em Docker
 
 # Rede Social
 
-![Youtube](https://img.shields.io/youtube/channel/subscribers/UCXS1xLbEwr12d97UyIEw6_w?style=social)
-![Twitter](https://img.shields.io/twitter/follow/kelseysantos?style=social)
-(https://img.shields.io/github/followers/kelseysantos?style=social)
+[Youtube](https://img.shields.io/youtube/channel/subscribers/UCXS1xLbEwr12d97UyIEw6_w?style=social)
+[Twitter](https://img.shields.io/twitter/follow/kelseysantos?style=social)
+[GitHub](https://img.shields.io/github/followers/kelseysantos?style=social)
 
 # Contatos
 
