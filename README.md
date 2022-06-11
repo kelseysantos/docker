@@ -1,6 +1,8 @@
 Projetos em Docker ![Docker](https://img.shields.io/github/stars/kelseysantos/docker?style=flat-square)
 ==================
 
+Em breve vou começar o meu projeto Docker.
+
 # Rede Social
 
 ![Youtube](https://img.shields.io/youtube/channel/subscribers/UCXS1xLbEwr12d97UyIEw6_w?style=social)<br>
