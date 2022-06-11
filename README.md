@@ -1,4 +1,4 @@
-Projetos em Docker
+Projetos em Docker ![(https://img.shields.io/github/stars/kelseysantos/docker?style=flat-square)]
 ==================
 
 # Rede Social
@@ -6,6 +6,7 @@ Projetos em Docker
 ![Youtube](https://img.shields.io/youtube/channel/subscribers/UCXS1xLbEwr12d97UyIEw6_w?style=social)<br>
 ![Twitter](https://img.shields.io/twitter/follow/kelseysantos?style=social)<br>
 ![GitHub](https://img.shields.io/github/followers/kelseysantos?style=social)<br>
+![GitHubDownload](https://img.shields.io/github/downloads/kelseysantos/docker/total)
 
 # Contatos
 
