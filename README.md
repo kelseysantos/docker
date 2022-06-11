@@ -4,7 +4,7 @@ Projetos em Docker ![Docker](https://img.shields.io/github/stars/kelseysantos/do
 Em breve vou começar o meu projeto Docker.
 
 | NETWORK       | VLAN    | Nome VLAN   | HOSTANAME                 | Endereço de IP  |
-| ------------- | ------- | ----------- | ------------------------- | --------------- |
+| - | - | - | - | - |
 | dchp          | bridge  | networkred  | firewall.lab.local        | `dhcp`          |
 | ------------- | ------- | ----------- | ------------------------- | --------------- |
 | 10.1.10.0/24  | 10      | macvlan1010 | samba.lab.local           | `10.1.10.10`    |
