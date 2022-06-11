@@ -1,4 +1,4 @@
-Projetos em Docker ![(https://img.shields.io/github/stars/kelseysantos/docker?style=flat-square)]
+Projetos em Docker ![Docker](https://img.shields.io/github/stars/kelseysantos/docker?style=flat-square)
 ==================
 
 # Rede Social
