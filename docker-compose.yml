@@ -1,14 +1,13 @@
 version: '3.8'
 
 services:
+#Server MINIO Teste
   serverminio:
     image: bitnami/minio:latest
-    container_name: container_minio
+    container_name: container_serverminio
     environment:
       - MINIO_ROOT_USER=kelsey
       - MINIO_ROOT_PASSWORD=kelseysantos
-      - MINIO_SERVER_HOST='minioserver'
-      - MINIO_SERVER_ACCESS_KEY
     volumes:
       - ./storages/minio:/data
       - ./storages/minio/certs:/certs
@@ -17,8 +16,19 @@ services:
       - '9001:9001'
     networks:
       green:
-
+#Cliente MINIO Teste
+  clientminio:
+    image: bitnami/minio-client:latest
+    container_name: container_clientminio
+    environment:
+      - MINIO_SERVER_HOST="serverminio"
+      - MINIO_SERVER_ACCESS_KEY="EeyKGV8sW6eNbq2o"
+      - MINIO_SERVER_SECRET_KEY="gIxr84JBcWiZ7pKfScS8zNl6Spkc3I5D"
+    networks:
+      green:
+#MINIOFIM
 networks:
   green:
     name: networkgreen
     driver: bridge
+  
