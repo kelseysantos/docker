@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-#Server MINIO Teste
+#Server MINIO 01
   serverminio:
     image: bitnami/minio:latest
     container_name: container_serverminio
@@ -16,19 +16,34 @@ services:
       - '9001:9001'
     networks:
       green:
-#Cliente MINIO Teste
-  clientminio:
-    image: bitnami/minio-client:latest
-    container_name: container_clientminio
+#Server MINIO 02
+  serverminio2:
+    image: bitnami/minio:latest
+    container_name: container_serverminio2
     environment:
-      - MINIO_SERVER_HOST="serverminio"
-      - MINIO_SERVER_ACCESS_KEY="EeyKGV8sW6eNbq2o"
-      - MINIO_SERVER_SECRET_KEY="gIxr84JBcWiZ7pKfScS8zNl6Spkc3I5D"
+      - MINIO_ROOT_USER=kelsey
+      - MINIO_ROOT_PASSWORD=kelseysantos
+    volumes:
+      - ./storages/minio2:/data
+      - ./storages/minio2/certs:/certs
+    ports:
+      - '9002:9002'
+      - '9003:9003'
     networks:
       green:
+# #Cliente MINIO Teste
+#   clientminio:
+#     image: bitnami/minio-client:latest
+#     container_name: container_clientminio
+#     environment:
+#       - MINIO_SERVER_HOST="serverminio"
+#       - MINIO_SERVER_ACCESS_KEY="EeyKGV8sW6eNbq2o"
+#       - MINIO_SERVER_SECRET_KEY="gIxr84JBcWiZ7pKfScS8zNl6Spkc3I5D"
+#     networks:
+#       green:
 #MINIOFIM
 networks:
   green:
-    name: networkgreen
+    name: redeverde
     driver: bridge
   
