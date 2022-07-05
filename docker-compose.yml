@@ -2,48 +2,62 @@ version: '3.8'
 
 services:
 #Server MINIO 01
-  serverminio:
+  miniomaster:
     image: bitnami/minio:latest
-    container_name: container_serverminio
+    container_name: container_miniomaster
     environment:
       - MINIO_ROOT_USER=kelsey
       - MINIO_ROOT_PASSWORD=kelseysantos
     volumes:
       - ./storages/minio:/data
       - ./storages/minio/certs:/certs
+    networks:
+      green:
+      vlan10:
+        ipv4_address: 10.1.10.10
     ports:
       - '9000:9000'
       - '9001:9001'
-    networks:
-      green:
 #Server MINIO 02
-  serverminio2:
-    image: bitnami/minio:latest
-    container_name: container_serverminio2
-    environment:
-      - MINIO_ROOT_USER=kelsey
-      - MINIO_ROOT_PASSWORD=kelseysantos
-    volumes:
-      - ./storages/minio2:/data
-      - ./storages/minio2/certs:/certs
-    ports:
-      - '9002:9002'
-      - '9003:9003'
-    networks:
-      green:
+  # minioslave:
+  #   image: bitnami/minio:latest
+  #   container_name: container_minioslave
+  #   environment:
+  #     - MINIO_ROOT_USER=kelsey
+  #     - MINIO_ROOT_PASSWORD=kelseysantos
+  #   volumes:
+  #     - ./storages/minioslave:/data
+  #     - ./storages/minioslave/certs:/certs
+  #   networks:
+  #     # green:
+  #     vlan10:
+  #       ipv4_address: 10.1.10.11
+  #   ports:
+  #     - '9000:9000'
+  #     - '9001:9001'
 # #Cliente MINIO Teste
-#   clientminio:
+#   minioclient:
 #     image: bitnami/minio-client:latest
-#     container_name: container_clientminio
+#     container_name: container_minioclient
 #     environment:
-#       - MINIO_SERVER_HOST="serverminio"
-#       - MINIO_SERVER_ACCESS_KEY="EeyKGV8sW6eNbq2o"
-#       - MINIO_SERVER_SECRET_KEY="gIxr84JBcWiZ7pKfScS8zNl6Spkc3I5D"
+#       - MINIO_SERVER_HOST="localhost"
+#       - MINIO_SERVER_ACCESS_KEY="kelsey"
+#       - MINIO_SERVER_SECRET_KEY="kelseysantos"
+#     depends_on:
+#       - miniomaster
 #     networks:
 #       green:
 #MINIOFIM
 networks:
+  vlan10:
+    name: NET_vlan10
+    driver: ipvlan
+    driver_opts:
+      parent: eth0.10
+      mode: l3
+    ipam:
+      config:
+        - subnet: 10.1.10.0/24
   green:
-    name: redeverde
+    name: NET_green
     driver: bridge
-  
