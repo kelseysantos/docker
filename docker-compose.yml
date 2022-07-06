@@ -3,14 +3,20 @@ version: '3.8'
 services:
 #Server MINIO 01
   miniomaster:
+    # build: ./images/minio
     image: bitnami/minio:latest
     container_name: container_miniomaster
+    hostname: miniomaster
     environment:
       - MINIO_ROOT_USER=kelsey
       - MINIO_ROOT_PASSWORD=kelseysantos
+      # - MINIO_SCHEME=https
+      # - MINIO_SERVER_URL=https://localhost
+      # - MINIO_ACCESS_KEY=EeyKGV8sW6eNbq2o
+      # - MINIO_SECRET_KEY=gIxr84JBcWiZ7pKfScS8zNl6Spkc3I5D
     volumes:
       - ./storages/minio:/data
-      - ./storages/minio/certs:/certs
+      # - ./storages/minio/certs:/certs
     networks:
       green:
       vlan10:
@@ -18,6 +24,7 @@ services:
     ports:
       - '9000:9000'
       - '9001:9001'
+    # restart: always
 #Server MINIO 02
   # minioslave:
   #   image: bitnami/minio:latest
