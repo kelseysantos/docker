@@ -25,6 +25,7 @@ Minio 4 Nodes
 | 10.1.10.0/24  | 10      | vlan10      | minioslave1   | `10.1.10.12`    |
 | 10.1.10.0/24  | 10      | vlan10      | minioslave2   | `10.1.10.13`    |
 
+    * Volumes = ./minio
 
 # Rede Social
 
