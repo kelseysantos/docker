@@ -21,6 +21,8 @@ services:
         ipv4_address: 10.1.10.10
   minioslave0:
     image: bitnami/minio:latest
+    container_name: container_minioslave0
+    hostname: minioslave0
     volumes:
       - './minio/disk1:/data'
     environment:
@@ -28,11 +30,15 @@ services:
       - MINIO_ROOT_PASSWORD=kelseysantos
       - MINIO_DISTRIBUTED_MODE_ENABLED=yes
       - MINIO_DISTRIBUTED_NODES=miniomaster,minioslave0,minioslave1,minioslave2
+    depends_on:
+      - miniomaster
     networks:
       vlan10:
         ipv4_address: 10.1.10.11
   minioslave1:
     image: bitnami/minio:latest
+    container_name: container_minioslave1
+    hostname: minioslave1
     volumes:
       - './minio/disk2:/data'
     environment:
@@ -40,11 +46,15 @@ services:
       - MINIO_ROOT_PASSWORD=kelseysantos
       - MINIO_DISTRIBUTED_MODE_ENABLED=yes
       - MINIO_DISTRIBUTED_NODES=miniomaster,minioslave0,minioslave1,minioslave2
+    depends_on:
+      - miniomaster
     networks:
       vlan10:
         ipv4_address: 10.1.10.12
   minioslave2:
     image: bitnami/minio:latest
+    container_name: container_minioslave2
+    hostname: minioslave2
     volumes:
       - './minio/disk3:/data'
     environment:
@@ -52,10 +62,13 @@ services:
       - MINIO_ROOT_PASSWORD=kelseysantos
       - MINIO_DISTRIBUTED_MODE_ENABLED=yes
       - MINIO_DISTRIBUTED_NODES=miniomaster,minioslave0,minioslave1,minioslave2
+    depends_on:
+      - miniomaster
     networks:
       vlan10:
         ipv4_address: 10.1.10.13
 
+#NETWORK CONFIGURATION
 networks:
   vlan10:
     name: NET_vlan10
@@ -69,3 +82,4 @@ networks:
   green:
     name: NET_green
     driver: bridge
+#
