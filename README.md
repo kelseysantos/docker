@@ -3,14 +3,16 @@ Projetos em Docker ![Docker](https://img.shields.io/github/stars/kelseysantos/do
 
 Em breve vou começar o meu projeto Docker.
 
+Minio 4 Nodes
+-------------
+
 | NETWORK       | VLAN    | Nome VLAN   | HOSTNAME      | Endereço de IP  |
 | - | - | - | - | - |
 | green         | bridge  | networkred  | miniomaster   | `dhcp`          | Acesso a Rede Externa   |
 | 10.1.10.0/24  | 10      | vlan10      | miniomaster   | `10.1.10.10`    | Acesso Local Rede 10    |
 | 10.1.10.0/24  | 10      | vlan10      | minioslave0   | `10.1.10.11`    |
 | 10.1.10.0/24  | 10      | vlan10      | minioslave1   | `10.1.10.12`    |
-| 10.1.10.0/24  | 10      | vlan10      | minioslave2   | `10.1.10.10`    |
-| 10.1.10.0/24  | 10      | vlan10      | minioslave3   | `10.1.10.10`    |
+| 10.1.10.0/24  | 10      | vlan10      | minioslave2   | `10.1.10.13`    |
 
 # Rede Social
 
