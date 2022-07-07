@@ -5,7 +5,7 @@ Em breve vou começar o meu projeto Docker.
 
 | NETWORK       | VLAN    | Nome VLAN   | HOSTNAME      | Endereço de IP  |
 | - | - | - | - | - |
-| green         | bridge  | networkred  | miniomaster   | `dhcp`          |
+| green         | bridge  | networkred  | miniomaster   | `dhcp`          | Acesso a Rede Externa |
 | 10.1.10.0/24  | 10      | vlan10      | miniomaster   | `10.1.10.10`    |
 | 10.1.10.0/24  | 10      | vlan10      | minioslave0   | `10.1.10.11`    |
 | 10.1.10.0/24  | 10      | vlan10      | minioslave1   | `10.1.10.12`    |
