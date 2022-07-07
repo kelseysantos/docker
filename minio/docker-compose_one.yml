@@ -24,37 +24,9 @@ services:
     ports:
       - '9000:9000'
       - '9001:9001'
-    # restart: always
-#Server MINIO 02
-  # minioslave:
-  #   image: bitnami/minio:latest
-  #   container_name: container_minioslave
-  #   environment:
-  #     - MINIO_ROOT_USER=kelsey
-  #     - MINIO_ROOT_PASSWORD=kelseysantos
-  #   volumes:
-  #     - ./storages/minioslave:/data
-  #     - ./storages/minioslave/certs:/certs
-  #   networks:
-  #     # green:
-  #     vlan10:
-  #       ipv4_address: 10.1.10.11
-  #   ports:
-  #     - '9000:9000'
-  #     - '9001:9001'
-# #Cliente MINIO Teste
-#   minioclient:
-#     image: bitnami/minio-client:latest
-#     container_name: container_minioclient
-#     environment:
-#       - MINIO_SERVER_HOST="localhost"
-#       - MINIO_SERVER_ACCESS_KEY="kelsey"
-#       - MINIO_SERVER_SECRET_KEY="kelseysantos"
-#     depends_on:
-#       - miniomaster
-#     networks:
-#       green:
-#MINIOFIM
+    restart: always
+
+#NETWORK CONFIGURATION
 networks:
   vlan10:
     name: NET_vlan10
@@ -68,3 +40,4 @@ networks:
   green:
     name: NET_green
     driver: bridge
+#

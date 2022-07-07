@@ -1,7 +1,12 @@
-Projetos em Docker ![Docker](https://img.shields.io/github/stars/kelseysantos/docker?style=flat-square)
+Aplicações em Docker ![Docker](https://img.shields.io/github/stars/kelseysantos/docker?style=flat-square)
 ==================
 
-Em breve vou começar o meu projeto Docker.
+Projetos para aplicações em Docker
+
+Menu
+1.Minio 
+
+
 
 Minio 1 Nodes
 -------------
@@ -9,10 +14,6 @@ Minio 1 Nodes
 | NETWORK       | VLAN    | Nome VLAN   | HOSTNAME      | Endereço de IP  |
 | - | - | - | - | - |
 | green         | bridge  | networkred  | miniomaster   | `dhcp`          | Acesso a Rede Externa   |
-<!-- | 10.1.10.0/24  | 10      | vlan10      | miniomaster   | `10.1.10.10`    | Acesso Local Rede 10    |
-| 10.1.10.0/24  | 10      | vlan10      | minioslave0   | `10.1.10.11`    |
-| 10.1.10.0/24  | 10      | vlan10      | minioslave1   | `10.1.10.12`    |
-| 10.1.10.0/24  | 10      | vlan10      | minioslave2   | `10.1.10.13`    | -->
 
 Minio 4 Nodes
 -------------
