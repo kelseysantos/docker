@@ -3,11 +3,14 @@ Projetos em Docker ![Docker](https://img.shields.io/github/stars/kelseysantos/do
 
 Em breve vou começar o meu projeto Docker.
 
-| NETWORK       | VLAN    | Nome VLAN   | HOSTANAME                     | Endereço de IP  |
+| NETWORK       | VLAN    | Nome VLAN   | HOSTNAME      | Endereço de IP  |
 | - | - | - | - | - |
-| dchp          | bridge  | networkred  | firewall.servicos.cuiaba.br   | `dhcp`          |
-|   |   |   |   |   |
-| 10.1.10.0/24  | 10      | 1010 | samba.servicos.cuiaba.br             | `10.1.10.10`    |
+| green         | bridge  | networkred  | miniomaster   | `dhcp`          |
+| 10.1.10.0/24  | 10      | vlan10      | miniomaster   | `10.1.10.10`    |
+| 10.1.10.0/24  | 10      | vlan10      | minioslave0   | `10.1.10.11`    |
+| 10.1.10.0/24  | 10      | vlan10      | minioslave1   | `10.1.10.12`    |
+| 10.1.10.0/24  | 10      | vlan10      | minioslave2   | `10.1.10.10`    |
+| 10.1.10.0/24  | 10      | vlan10      | minioslave3   | `10.1.10.10`    |
 
 # Rede Social
 
