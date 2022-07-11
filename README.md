@@ -13,7 +13,7 @@ Menu
 | NETWORK       | VLAN    | Nome VLAN   | HOSTNAME      | Endereço de IP  |
 | - | - | - | - | - |
 | green         | bridge  | networkred  | miniomaster   | `dhcp`          | Acesso a Rede Externa   |
- * Volumes = ./volumes/hd00
+ * HardDisk = ./volumes/hd00
 
 ### Minio 4 Nodes Multinodes
 
@@ -24,7 +24,7 @@ Menu
 | 10.1.10.0/24  | 10      | vlan10      | minioslave0   | `10.1.10.11`    |
 | 10.1.10.0/24  | 10      | vlan10      | minioslave1   | `10.1.10.12`    |
 | 10.1.10.0/24  | 10      | vlan10      | minioslave2   | `10.1.10.13`    |
- * Volumes = ./volumes/disk*
+ * HardDisk = ./volumes/disk*
 
 ### Minio 3 Nodes 36 Disk
 
@@ -34,7 +34,7 @@ Menu
 | 10.1.10.0/24  | 10      | vlan10      | minio0   | `10.1.10.10`    | Acesso Local Rede 10    |
 | 10.1.10.0/24  | 10      | vlan10      | minio1   | `10.1.10.11`    |
 | 10.1.10.0/24  | 10      | vlan10      | minio2   | `10.1.10.12`    |
- * Volumes = ./volumes/0*
+ * HardDisk = ./volumes/0*
 
 # Rede Social
 
