@@ -30,6 +30,7 @@ services:
       green:
       vlan10: 
         ipv4_address: 10.1.10.10
+#
 #minio1
   minio1:
     image: 'bitnami/minio:latest'
