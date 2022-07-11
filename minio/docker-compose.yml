@@ -1,108 +1,178 @@
-version: '3.8'
+version: "3.8"
 
 services:
-#minio0
-  minio0:
-    image: 'bitnami/minio:latest'
-    container_name: container_minio0
-    volumes:
-      - ./volumes/00:/data-0
-      - ./volumes/01:/data-1
-      - ./volumes/02:/data-2
-      - ./volumes/03:/data-3
-      - ./volumes/04:/data-4
-      - ./volumes/05:/data-5
-      - ./volumes/06:/data-6
-      - ./volumes/07:/data-7
-      - ./volumes/08:/data-8
-      - ./volumes/09:/data-9
-      - ./volumes/10:/data-10
-      - ./volumes/11:/data-11
-    environment:
-      - MINIO_ROOT_USER=kelsey
-      - MINIO_ROOT_PASSWORD=kelseysantos
-      - MINIO_DISTRIBUTED_MODE_ENABLED=yes
-      - MINIO_DISTRIBUTED_NODES=minio{0...2}/data-{0...11}
-    ports:
-      - '9000:9000'
-      - '9001:9001'
+  traefik:
+    image: traefik
     networks:
-      green:
-      vlan10: 
-        ipv4_address: 10.1.10.10
-#
-#minio1
+      - arbotti_network
+    command:
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --providers.docker.exposedbydefault=false
+      # Swarm
+      - --providers.docker.swarmMode=true
+      # Enables web UI and tells Traefik to listen to docker
+      - --providers.docker
+      - --api
+      # Let's Encrypt
+      #- --certificatesresolvers.leresolver.acme.email=myemail@server.com
+      #- --certificatesresolvers.leresolver.acme.storage=/letsencrypt/acme.json
+      #- --certificatesresolvers.leresolver.acme.tlschallenge=true
+      # Logging
+      - --log.level=ERROR # DEBUG, ERROR, INFO???
+      #- --log.filePath=/traefik.log
+      #- --log.format=json
+    ports:
+      - 30010:80  # 30010: traefik host port
+      # - "443:443"
+    volumes:
+      #- ./letsencrypt:/letsencrypt
+      #- ./logs/traefik.log:/traefik.log
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        traefik.enable: "true"
+        # Dashboard
+        traefik.http.routers.traefik.rule: "Host(`traefik.alexhilman.com`) || Host(`traefik.arbotti.com`)"
+        traefik.http.routers.traefik.service: api@internal
+        #traefik.http.routers.traefik.tls.certresolver: leresolver
+        traefik.http.routers.traefik.entrypoints: web
+        traefik.http.routers.traefik.middlewares: auth-traefik
+        # Swarm Mode
+        traefik.http.services.traefik.loadbalancer.server.port: 80
+        # Basic Auth
+        traefik.http.middlewares.auth-traefik.basicauth.users: "traefikadmin:$$apr1$$Rvv7TErk$$eZzEAmMGZq7iTQ3BMD.NA0"
+        
+        # Global http to https redirect
+        #traefik.http.routers.http-catchall.rule: "hostregexp(`{host:.+}`)"
+        #traefik.http.routers.http-catchall.entrypoints: web
+        #traefik.http.routers.http-catchall.middlewares: redirect-to-https
+        # Middleware redirect
+        #traefik.http.middlewares.redirect-to-https.redirectscheme.scheme: https
+
+# starts 4 docker containers running minio server instances. Each
+# minio server's web interface will be accessible on the host at port
+# 9001 through 9004.
+
   minio1:
-    image: 'bitnami/minio:latest'
-    container_name: container_minio1
+    image: minio/minio
     volumes:
-      - ./volumes/12:/data-0
-      - ./volumes/13:/data-1
-      - ./volumes/14:/data-2
-      - ./volumes/15:/data-3
-      - ./volumes/16:/data-4
-      - ./volumes/17:/data-5
-      - ./volumes/18:/data-6
-      - ./volumes/19:/data-7
-      - ./volumes/20:/data-8
-      - ./volumes/21:/data-9
-      - ./volumes/22:/data-10
-      - ./volumes/23:/data-11
-    environment:
-      - MINIO_ROOT_USER=kelsey
-      - MINIO_ROOT_PASSWORD=kelseysantos
-      - MINIO_DISTRIBUTED_MODE_ENABLED=yes
-      - MINIO_DISTRIBUTED_NODES=minio{0...2}/data-{0...11}
+      - /volumes/minio1_data:/data
     ports:
-      - '9002:9000'
-      - '9003:9001'
+      - "9001:9000"
     networks:
-      # green:
-      vlan10: 
-        ipv4_address: 10.1.10.11
-#
-#minio2
+      - arbotti_network
+    deploy:
+      restart_policy:
+        delay: 10s
+        max_attempts: 10
+        window: 60s
+      placement:
+        constraints:
+          - node.labels.minio1==true
+    secrets:
+      - secret_key
+      - access_key
+    command: server http://minio{1...4}/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
   minio2:
-    image: 'bitnami/minio:latest'
-    container_name: container_minio2
+    image: minio/minio
     volumes:
-      - ./volumes/24:/data-0
-      - ./volumes/25:/data-1
-      - ./volumes/26:/data-2
-      - ./volumes/27:/data-3
-      - ./volumes/28:/data-4
-      - ./volumes/29:/data-5
-      - ./volumes/30:/data-6
-      - ./volumes/31:/data-7
-      - ./volumes/32:/data-8
-      - ./volumes/33:/data-9
-      - ./volumes/34:/data-10
-      - ./volumes/35:/data-11
-    environment:
-      - MINIO_ROOT_USER=kelsey
-      - MINIO_ROOT_PASSWORD=kelseysantos
-      - MINIO_DISTRIBUTED_MODE_ENABLED=yes
-      - MINIO_DISTRIBUTED_NODES=minio{0...2}/data-{0...11}
+      - /volumes/minio2_data:/data
     ports:
-      - '9004:9000'
-      - '9005:9001'
+      - "9002:9000"
     networks:
-      # green:
-      vlan10: 
-        ipv4_address: 10.1.10.12
-#
-#NETWORK CONFIGURATION
+      - arbotti_network
+    deploy:
+      restart_policy:
+        delay: 10s
+        max_attempts: 10
+        window: 60s
+      placement:
+        constraints:
+          - node.labels.minio2==true
+    secrets:
+      - secret_key
+      - access_key
+    command: server http://minio{1...4}/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  minio3:
+    image: minio/minio
+    volumes:
+      - /volumes/minio3_data:/data
+    ports:
+      - "9003:9000"
+    networks:
+      - arbotti_network
+    deploy:
+      restart_policy:
+        delay: 10s
+        max_attempts: 10
+        window: 60s
+      placement:
+        constraints:
+          - node.labels.minio3==true
+    secrets:
+      - secret_key
+      - access_key
+    command: server http://minio{1...4}/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  minio4:
+    image: minio/minio
+    volumes:
+      - /volumes/minio4_data:/data
+    ports:
+      - "9004:9000"
+    networks:
+      - arbotti_network
+    deploy:
+      restart_policy:
+        delay: 10s
+        max_attempts: 10
+        window: 60s
+      placement:
+        constraints:
+          - node.labels.minio4==true
+    secrets:
+      - secret_key
+      - access_key
+    command: server http://minio{1...4}/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
 networks:
-  vlan10:
-    name: NET_vlan10
-    driver: ipvlan
-    driver_opts:
-      parent: eth0.10
-      mode: l3
-    ipam:
-      config:
-        - subnet: 10.1.10.0/24
-  green:
-    name: NET_green
-    driver: bridge
-#
+  arbotti_network:
+
+volumes:
+  minio_data1:
+  minio_data2:
+  minio_data3:
+  minio_data4:
+
+secrets:
+  secret_key:
+    external: true
+  access_key:
+    external: true
