@@ -1,50 +1,107 @@
-version: '2'
+version: '3.8'
 
 services:
-  prepare-data:
-    image: bitnami/bitnami-shell:latest
-    user: root
-    command:
-      - /bin/bash
-      - -ec
-      - |
-        chmod -R g+rwX /data-0-0 /data-0-1 /data-1-0 /data-1-1
+#minio0
+  minio0:
+    image: 'bitnami/minio:latest'
+    container_name: container_minio0
     volumes:
-      - 'minio_0_data_0:/data-0-0'
-      - 'minio_0_data_1:/data-0-1'
-      - 'minio_1_data_0:/data-1-0'
-      - 'minio_1_data_1:/data-1-1'
-  minio-0:
-    image: bitnami/minio:latest
-    volumes:
-      - 'minio_0_data_0:/data-0'
-      - 'minio_0_data_1:/data-1'
+      - ./volumes/00:/data-0
+      - ./volumes/01:/data-1
+      - ./volumes/02:/data-2
+      - ./volumes/03:/data-3
+      - ./volumes/04:/data-4
+      - ./volumes/05:/data-5
+      - ./volumes/06:/data-6
+      - ./volumes/07:/data-7
+      - ./volumes/08:/data-8
+      - ./volumes/09:/data-9
+      - ./volumes/10:/data-10
+      - ./volumes/11:/data-11
     environment:
-      - MINIO_ROOT_USER=minio
-      - MINIO_ROOT_PASSWORD=miniosecret
+      - MINIO_ROOT_USER=kelsey
+      - MINIO_ROOT_PASSWORD=kelseysantos
       - MINIO_DISTRIBUTED_MODE_ENABLED=yes
-      - MINIO_DISTRIBUTED_NODES=minio-{0...1}/data-{0...1}
-    depends_on:
-      - prepare-data
-  minio-1:
-    image: bitnami/minio:latest
+      - MINIO_DISTRIBUTED_NODES=minio{0...2}/data-{0...11}
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    networks:
+      green:
+      vlan10: 
+        ipv4_address: 10.1.10.10
+#minio1
+  minio1:
+    image: 'bitnami/minio:latest'
+    container_name: container_minio1
     volumes:
-      - 'minio_1_data_0:/data-0'
-      - 'minio_1_data_1:/data-1'
+      - ./volumes/12:/data-0
+      - ./volumes/13:/data-1
+      - ./volumes/14:/data-2
+      - ./volumes/15:/data-3
+      - ./volumes/16:/data-4
+      - ./volumes/17:/data-5
+      - ./volumes/18:/data-6
+      - ./volumes/19:/data-7
+      - ./volumes/20:/data-8
+      - ./volumes/21:/data-9
+      - ./volumes/22:/data-10
+      - ./volumes/23:/data-11
     environment:
-      - MINIO_ROOT_USER=minio
-      - MINIO_ROOT_PASSWORD=miniosecret
+      - MINIO_ROOT_USER=kelsey
+      - MINIO_ROOT_PASSWORD=kelseysantos
       - MINIO_DISTRIBUTED_MODE_ENABLED=yes
-      - MINIO_DISTRIBUTED_NODES=minio-{0...1}/data-{0...1}
-    depends_on:
-      - prepare-data
-
-volumes:
-  minio_0_data_0:
-    driver: local
-  minio_0_data_1:
-    driver: local
-  minio_1_data_0:
-    driver: local
-  minio_1_data_1:
-    driver: local
+      - MINIO_DISTRIBUTED_NODES=minio{0...2}/data-{0...11}
+    ports:
+      - '9002:9000'
+      - '9003:9001'
+    networks:
+      # green:
+      vlan10: 
+        ipv4_address: 10.1.10.11
+#
+#minio2
+  minio2:
+    image: 'bitnami/minio:latest'
+    container_name: container_minio2
+    volumes:
+      - ./volumes/24:/data-0
+      - ./volumes/25:/data-1
+      - ./volumes/26:/data-2
+      - ./volumes/27:/data-3
+      - ./volumes/28:/data-4
+      - ./volumes/29:/data-5
+      - ./volumes/30:/data-6
+      - ./volumes/31:/data-7
+      - ./volumes/32:/data-8
+      - ./volumes/33:/data-9
+      - ./volumes/34:/data-10
+      - ./volumes/35:/data-11
+    environment:
+      - MINIO_ROOT_USER=kelsey
+      - MINIO_ROOT_PASSWORD=kelseysantos
+      - MINIO_DISTRIBUTED_MODE_ENABLED=yes
+      - MINIO_DISTRIBUTED_NODES=minio{0...2}/data-{0...11}
+    ports:
+      - '9004:9000'
+      - '9005:9001'
+    networks:
+      # green:
+      vlan10: 
+        ipv4_address: 10.1.10.12
+#
+#NETWORK CONFIGURATION
+networks:
+  vlan10:
+    name: NET_vlan10
+    driver: ipvlan
+    driver_opts:
+      parent: eth0.10
+      mode: l3
+    ipam:
+      config:
+        - subnet: 10.1.10.0/24
+  green:
+    name: NET_green
+    driver: bridge
+#

@@ -15,8 +15,8 @@ services:
       # - MINIO_ACCESS_KEY=EeyKGV8sW6eNbq2o
       # - MINIO_SECRET_KEY=gIxr84JBcWiZ7pKfScS8zNl6Spkc3I5D
     volumes:
-      - ./storages/minio:/data
-      # - ./storages/minio/certs:/certs
+      - ./volumes/hd0:/data
+      # - ./volumes/hd0/certs:/certs
     networks:
       green:
       vlan10:

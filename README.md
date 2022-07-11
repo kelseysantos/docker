@@ -8,15 +8,14 @@ Menu
 
 
 
-Minio 1 Nodes
--------------
+### Minio 1 Nodes
 
 | NETWORK       | VLAN    | Nome VLAN   | HOSTNAME      | Endereço de IP  |
 | - | - | - | - | - |
 | green         | bridge  | networkred  | miniomaster   | `dhcp`          | Acesso a Rede Externa   |
+ * Volumes = ./volumes/hd00
 
-Minio 4 Nodes
--------------
+### Minio 4 Nodes Multinodes
 
 | NETWORK       | VLAN    | Nome VLAN   | HOSTNAME      | Endereço de IP  |
 | - | - | - | - | - |
@@ -25,8 +24,17 @@ Minio 4 Nodes
 | 10.1.10.0/24  | 10      | vlan10      | minioslave0   | `10.1.10.11`    |
 | 10.1.10.0/24  | 10      | vlan10      | minioslave1   | `10.1.10.12`    |
 | 10.1.10.0/24  | 10      | vlan10      | minioslave2   | `10.1.10.13`    |
+ * Volumes = ./volumes/disk*
 
-    * Volumes = ./minio
+### Minio 3 Nodes 36 Disk
+
+| NETWORK       | VLAN    | Nome VLAN   | HOSTNAME      | Endereço de IP  |
+| - | - | - | - | - |
+| green         | bridge  | networkred  | minio0   | `dhcp`          | Acesso a Rede Externa   |
+| 10.1.10.0/24  | 10      | vlan10      | minio0   | `10.1.10.10`    | Acesso Local Rede 10    |
+| 10.1.10.0/24  | 10      | vlan10      | minio1   | `10.1.10.11`    |
+| 10.1.10.0/24  | 10      | vlan10      | minio2   | `10.1.10.12`    |
+ * Volumes = ./volumes/0*
 
 # Rede Social
 

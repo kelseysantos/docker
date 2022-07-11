@@ -9,7 +9,7 @@ services:
       - 9000:9000
       - 9001:9001
     volumes:
-      - './minio/disk0:/data'
+      - './volumes/disk0:/data'
     environment:
       - MINIO_ROOT_USER=kelsey
       - MINIO_ROOT_PASSWORD=kelseysantos
@@ -24,7 +24,7 @@ services:
     container_name: container_minioslave0
     hostname: minioslave0
     volumes:
-      - './minio/disk1:/data'
+      - './volumes/disk1:/data'
     environment:
       - MINIO_ROOT_USER=kelsey
       - MINIO_ROOT_PASSWORD=kelseysantos
@@ -32,6 +32,9 @@ services:
       - MINIO_DISTRIBUTED_NODES=miniomaster,minioslave0,minioslave1,minioslave2
     depends_on:
       - miniomaster
+    ports:
+      - 9002:9000
+      - 9003:9001
     networks:
       vlan10:
         ipv4_address: 10.1.10.11
@@ -40,7 +43,7 @@ services:
     container_name: container_minioslave1
     hostname: minioslave1
     volumes:
-      - './minio/disk2:/data'
+      - './volumes/disk2:/data'
     environment:
       - MINIO_ROOT_USER=kelsey
       - MINIO_ROOT_PASSWORD=kelseysantos
@@ -48,6 +51,9 @@ services:
       - MINIO_DISTRIBUTED_NODES=miniomaster,minioslave0,minioslave1,minioslave2
     depends_on:
       - miniomaster
+    ports:
+      - 9004:9000
+      - 9005:9001
     networks:
       vlan10:
         ipv4_address: 10.1.10.12
@@ -56,7 +62,7 @@ services:
     container_name: container_minioslave2
     hostname: minioslave2
     volumes:
-      - './minio/disk3:/data'
+      - './volumes/disk3:/data'
     environment:
       - MINIO_ROOT_USER=kelsey
       - MINIO_ROOT_PASSWORD=kelseysantos
@@ -64,6 +70,9 @@ services:
       - MINIO_DISTRIBUTED_NODES=miniomaster,minioslave0,minioslave1,minioslave2
     depends_on:
       - miniomaster
+    ports:
+      - 9006:9000
+      - 9007:9001
     networks:
       vlan10:
         ipv4_address: 10.1.10.13
