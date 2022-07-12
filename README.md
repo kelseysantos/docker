@@ -6,8 +6,6 @@ Projetos para aplicações em Docker
 Menu
 1.Minio 
 
-
-
 ### Minio 1 Nodes
 
 | NETWORK       | VLAN    | Nome VLAN   | HOSTNAME      | Endereço de IP  |
@@ -26,7 +24,7 @@ Menu
 | 10.1.10.0/24  | 10      | vlan10      | minioslave2   | `10.1.10.13`    |
  * HardDisk = ./volumes/disk*
 
-### Minio 3 Nodes 36 Disk
+### Minio 3 Nodes With 36 Disk
 
 | NETWORK       | VLAN    | Nome VLAN   | HOSTNAME      | Endereço de IP  |
 | - | - | - | - | - |
