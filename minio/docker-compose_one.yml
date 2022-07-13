@@ -21,7 +21,7 @@ services:
       - '9000:9000'
       - '9001:9001'
     restart: always
-
+#
 #NETWORK CONFIGURATION
 networks:
   vlan10:
