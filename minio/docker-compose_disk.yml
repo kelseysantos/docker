@@ -5,6 +5,7 @@ services:
   minio0:
     image: 'bitnami/minio:latest'
     container_name: container_minio0
+    hostname: minio0
     volumes:
       - ./volumes/00:/data-0
       - ./volumes/01:/data-1
@@ -34,6 +35,7 @@ services:
   minio1:
     image: 'bitnami/minio:latest'
     container_name: container_minio1
+    hostname: minio1
     volumes:
       - ./volumes/12:/data-0
       - ./volumes/13:/data-1
@@ -64,6 +66,7 @@ services:
   minio2:
     image: 'bitnami/minio:latest'
     container_name: container_minio2
+    hostname: minio2
     volumes:
       - ./volumes/24:/data-0
       - ./volumes/25:/data-1
