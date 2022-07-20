@@ -38,10 +38,10 @@ Projetos para aplicações em Docker
 | NETWORK       | VLAN    | Nome VLAN   | HOSTNAME      | Endereço de IP  |
 | - | - | - | - | - |
 | green         | bridge  | networkred  | urbackup   | `dhcp`          | Acesso a Rede Externa   |
- * HardDisk =   ./volumes/urbackup/varurbackup:/var/urbackup
-                ./volumes/urbackup/backups:/backups
-                ./volumes/urbackup/share:/usr/share/urbackup
-                ./volumes/urbackup/log:/var/log
+ * HardDisk =   ./volumes/urbackup/varurbackup:/var/urbackup<br>
+                ./volumes/urbackup/backups:/backups<br>
+                ./volumes/urbackup/share:/usr/share/urbackup<br>
+                ./volumes/urbackup/log:/var/log<br>
 
 
 # Sobre Docker Container
