@@ -1,14 +1,15 @@
 version: '3.9'
 
 services:
-#
-  samba4addc:
-    build: .
-    container_name: container_samba4addc
-    image: samba4addc
-    hostname: smbd
+  alpinetest:
+    container_name: container_alpinetest
+    image: alpine
+    hosname: alpine
     # restart: unless-stopped
     privileged: true
+    # cap_add:
+    #   - NET_ADMIN
+    #   - SYS_ADMIN
     networks:
       NET_LOCAL:
         ipv4_address: 10.100.212.64
@@ -23,4 +24,3 @@ networks:
       driver: default
       config:
         - subnet: 10.100.212.0/24
-#
