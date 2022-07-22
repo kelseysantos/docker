@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+#
+  samba4dc:
+    build: .
+    container_name: container_samba4dc
+    image: samba4dc
+    hostname: samba2
+    # restart: unless-stopped
+    privileged: true
+    networks:
+      NET_LOCAL:
+        ipv4_address: 10.100.212.64
+#
+
+#NETWORK CONFIGURATION
+networks:
+  NET_LOCAL:
+    name: NET_LOCAL
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.100.212.0/24
+#
