@@ -8,7 +8,8 @@ RUN apk add bash bash-completion curl wget build-base
 WORKDIR /app
 
 ENTRYPOINT ["/bin/sh", "-l"]
-CMD [ ]
+
+CMD ["/bin/sh"]
 
 # FROM centos:7.9.2009
 
