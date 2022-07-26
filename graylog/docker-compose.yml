@@ -1,0 +1,133 @@
+version: '3.9'
+
+services:
+# GRAYLOG
+  mongo:
+    container_name: container_mongo
+    image: mongo:4.2
+    hostname: mongo
+    volumes:
+      - ./mongo/data:/data/db
+    networks:
+      NET_DOCKER:
+        ipv4_address: 10.1.10.10
+#
+  elasticsearch:
+    container_name: container_elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.2
+    hostname: elasticsearch
+    # cap_add:
+    #   - NET_ADMIN
+    #   - SYS_ADMIN 
+    # privileged: true
+    environment:
+      - http.host=0.0.0.0
+      - transport.host=localhost
+      - network.host=0.0.0.0
+      - "ES_JAVA_OPTS=-Dlog4j2.formatMsgNoLookups=true -Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+    volumes:
+      - ./elasticsearch/data/data:/usr/share/elasticsearch/data
+      - ./elasticsearch/data/logs:/usr/share/elasticsearch/logs
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      NET_DOCKER:
+        ipv4_address: 10.1.10.11
+#
+  graylog:
+    container_name: container_graylog
+    image: graylog/graylog:4.2
+    hostname: graylog
+    privileged: true
+    links:
+      - mongo
+      - elasticsearch
+    depends_on:
+      - elasticsearch
+      - mongo
+    environment:
+      - GRAYLOG_PASSWORD_SECRET=YVsSc1C1wJ^5k#95
+      - GRAYLOG_ROOT_PASSWORD_SHA2=8620498b046834dafe278d093dec33d4012c2e3d64befe405ca814f71cfd637e
+      - GRAYLOG_HTTP_EXTERNAL_URI=http://localhost:9000/
+      - GRAYLOG_mongo_URI=mongo://mongo:27017/graylog
+    entrypoint: /usr/bin/tini -- wait-for-it elasticsearch:9200 --  /docker-entrypoint.sh
+    ports:
+      # Graylog web interface and REST API
+      - 9000:9000
+      # Raw/Plaintext TCP
+      - 5555:5555
+      # Syslog TCP
+      - 1514:1514
+      # Syslog UDP
+      - 1514:1514/udp
+      # GELF TCP
+      - 12201:12201
+      # GELF UDP
+      - 12201:12201/udp
+    volumes:
+      - ./graylog/data/data:/usr/share/graylog/data/data
+      - ./graylog/data/journal:/usr/share/graylog/data/journal
+    restart: unless-stopped
+    networks:
+      NET_DOCKER:
+        ipv4_address: 10.1.10.12
+      NET_212:
+        ipv4_address: 10.100.212.60
+#
+#Status Docker
+  doku:
+    container_name: container_doku
+    image: amerkurev/doku
+    hostname: doku
+    # cap_add:
+    #   - NET_ADMIN
+    #   - SYS_ADMIN 
+    # restart: unless-stopped
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - '/:/hostroot:ro'
+    ports:
+      - '9090:9090'
+    networks:
+      NET_LOCAL:
+        # ipv4_address: 10.100.212.64
+#
+#NETWORK CONFIGURATION
+networks:
+  NET_DOCKER:
+    name: NET_DOCKER
+    driver: ipvlan
+    driver_opts:
+      mode: l3
+    ipam:
+      config:
+        - 
+          subnet: 10.1.10.0/24
+          gateway: 10.1.10.1
+  NET_LOCAL:
+    name: NET_LOCAL
+    driver: bridge
+  NET_212:
+    name: NET_212
+    driver: macvlan
+    driver_opts: 
+      parent: eno1
+    #   macvlan_mode: bridge
+    ipam:
+      config:
+        -
+          subnet: 10.100.212.0/24
+          gateway: 10.100.212.1
+          aux_addresses:
+            host: 10.100.212.65
+#
+#rm -frv ./REPOSITORIO/docker/graylog/elasticsearch/data;rm -frv ./REPOSITORIO/docker/graylog/mongo/data;rm -frv ./REPOSITORIO/docker/graylog/graylog

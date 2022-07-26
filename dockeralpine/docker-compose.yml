@@ -30,8 +30,8 @@ services:
     ports:
       - '9090:9090'
     networks:
-      NET_212:
-        ipv4_address: 10.100.212.64
+      NET_LOCAL:
+        # ipv4_address: 10.100.212.64
 #
 #NETWORK CONFIGURATION
 networks:
