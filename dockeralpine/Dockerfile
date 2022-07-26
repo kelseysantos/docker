@@ -1,15 +1,15 @@
 FROM alpine:latest
 
-RUN apk update
+RUN apk update && apk upgrade
 RUN apk add bash bash-completion curl wget build-base
-
-# RUN rm -rf /var/cache/apk/*
 
 WORKDIR /app
 
-ENTRYPOINT ["/bin/sh", "-l"]
+COPY start.sh /start.sh
 
-CMD ["/bin/sh"]
+CMD [ "/start.sh" ]
+
+# RUN rm -rf /var/cache/apk/*
 
 # FROM centos:7.9.2009
 
