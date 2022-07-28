@@ -1,128 +1,88 @@
 version: '3.8'
 
 services:
-#minio0
-  minio0:
-    image: 'bitnami/minio:latest'
-    container_name: container_minio0
-    volumes:
-      - ./volumes/00:/data-0
-      - ./volumes/01:/data-1
-      - ./volumes/02:/data-2
-      - ./volumes/03:/data-3
-      - ./volumes/04:/data-4
-      - ./volumes/05:/data-5
-      - ./volumes/06:/data-6
-      - ./volumes/07:/data-7
-      - ./volumes/08:/data-8
-      - ./volumes/09:/data-9
-      - ./volumes/10:/data-10
-      - ./volumes/11:/data-11
-    environment:
-      - MINIO_ROOT_USER=kelsey
-      - MINIO_ROOT_PASSWORD=kelseysantos
-      - MINIO_DISTRIBUTED_MODE_ENABLED=yes
-      - MINIO_DISTRIBUTED_NODES=minio{0...2}/data-{0...4}
-    ports:
-      - '9000:9000'
-      - '9001:9001'
-    networks:
-      green:
-      vlan10: 
-        ipv4_address: 10.1.10.10
-#minio1
-  minio1:
-    image: 'bitnami/minio:latest'
-    container_name: container_minio1
-    volumes:
-      - ./volumes/12:/data-0
-      - ./volumes/13:/data-1
-      - ./volumes/14:/data-2
-      - ./volumes/15:/data-3
-      - ./volumes/16:/data-4
-      - ./volumes/17:/data-5
-      - ./volumes/18:/data-6
-      - ./volumes/19:/data-7
-      - ./volumes/20:/data-8
-      - ./volumes/21:/data-9
-      - ./volumes/22:/data-10
-      - ./volumes/23:/data-11
-    environment:
-      - MINIO_ROOT_USER=kelsey
-      - MINIO_ROOT_PASSWORD=kelseysantos
-      - MINIO_DISTRIBUTED_MODE_ENABLED=yes
-      - MINIO_DISTRIBUTED_NODES=minio{0...2}/data-{0...4}
-    ports:
-      - '9002:9000'
-      - '9003:9001'
-    networks:
-      # green:
-      vlan10: 
-        ipv4_address: 10.1.10.11
-#
-#minio2
-  minio2:
-    image: 'bitnami/minio:latest'
-    container_name: container_minio2
-    volumes:
-      - ./volumes/24:/data-0
-      - ./volumes/25:/data-1
-      - ./volumes/26:/data-2
-      - ./volumes/27:/data-3
-      - ./volumes/28:/data-4
-      - ./volumes/29:/data-5
-      - ./volumes/30:/data-6
-      - ./volumes/31:/data-7
-      - ./volumes/32:/data-8
-      - ./volumes/33:/data-9
-      - ./volumes/34:/data-10
-      - ./volumes/35:/data-11
-    environment:
-      - MINIO_ROOT_USER=kelsey
-      - MINIO_ROOT_PASSWORD=kelseysantos
-      - MINIO_DISTRIBUTED_MODE_ENABLED=yes
-      - MINIO_DISTRIBUTED_NODES=minio{0...2}/data-{0...4}
-    ports:
-      - '9004:9000'
-      - '9005:9001'
-    networks:
-      # green:
-      vlan10:
-        ipv4_address: 10.1.10.12
-#
-#Server REPLICATION
+#Server MINIO 01
   miniomaster:
-    # build: ./images/minio
     image: bitnami/minio:latest
     container_name: container_miniomaster
     hostname: miniomaster
+    # restart: always
     environment:
       - MINIO_ROOT_USER=kelsey
       - MINIO_ROOT_PASSWORD=kelseysantos
     volumes:
-      - ./volumes/hd0:/data
-      # - ./volumes/hd0/certs:/certs
+      - volnode0:/data
+      - volnode0:/certs
     networks:
-      green:
-      vlan10:
-        ipv4_address: 10.1.10.13
+      NET_212:
+        ipv4_address: 10.100.212.58
     ports:
-      - '9006:9000'
-      - '9007:9001'
-    restart: always
+      - '9000:9000'
+      - '9001:9001'
+#
+#Server MINIO REPLICATION
+  miniorep0:
+    image: bitnami/minio:latest
+    container_name: container_miniorep0
+    hostname: miniorep0
+    # restart: always
+    environment:
+      - MINIO_ROOT_USER=kelsey
+      - MINIO_ROOT_PASSWORD=kelseysantos
+    volumes:
+      - volnode1:/data
+      - volnode1:/certs
+    networks:
+      NET_212:
+        ipv4_address: 10.100.212.59
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+#
+#Server MINIO REPLICATION
+  miniorep1:
+    image: bitnami/minio:latest
+    container_name: container_miniorep1
+    hostname: miniorep1
+    # restart: always
+    environment:
+      - MINIO_ROOT_USER=kelsey
+      - MINIO_ROOT_PASSWORD=kelseysantos
+    volumes:
+      - volnode2:/data
+      - volnode2:/certs
+    networks:
+      NET_212:
+        ipv4_address: 10.100.212.60
+    ports:
+      - '9000:9000'
+      - '9001:9001'
 #
 #NETWORK CONFIGURATION
 networks:
-  vlan10:
-    name: NET_vlan10
-    driver: ipvlan
-    driver_opts:
-      parent: eth0.10
-      mode: l3
+  NET_212:
+    name: NET_212
+    driver: macvlan
+    driver_opts: 
+      parent: eno1
+    #   macvlan_mode: bridge
     ipam:
       config:
-        - subnet: 10.1.10.0/24
-  green:
-    name: NET_green
-    driver: bridge
+        -
+          subnet: 10.100.212.0/24
+          gateway: 10.100.212.1
+          aux_addresses:
+            host: 10.100.212.65
+#
+# VOLUMES
+volumes:
+  volnode0:
+    name: volnode0
+    driver: local
+  volnode1:
+    name: volnode1
+    driver: local
+  volnode2:
+    name: volnode2
+    driver: local
 #

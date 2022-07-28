@@ -1,6 +1,7 @@
 version: '3.9'
 
 services:
+#ALPINE Teste
   alpine:
     build: .
     container_name: container_dk
@@ -15,29 +16,11 @@ services:
       NET_212:
         ipv4_address: 10.100.212.63
 #
-#Status Docker
-  doku:
-    container_name: container_doku
-    image: amerkurev/doku
-    hostname: doku
-    # cap_add:
-    #   - NET_ADMIN
-    #   - SYS_ADMIN 
-    # restart: unless-stopped
-    volumes:
-      - '/var/run/docker.sock:/var/run/docker.sock:ro'
-      - '/:/hostroot:ro'
-    ports:
-      - '9090:9090'
-    networks:
-      NET_LOCAL:
-        # ipv4_address: 10.100.212.64
-#
 #NETWORK CONFIGURATION
 networks:
-  NET_LOCAL:
-    name: NET_LOCAL
-    driver: bridge
+  # NET_LOCAL:
+  #   name: NET_LOCAL
+  #   driver: bridge
   NET_212:
     name: NET_212
     driver: macvlan
@@ -51,8 +34,4 @@ networks:
           gateway: 10.100.212.1
           aux_addresses:
             host: 10.100.212.65
-# ip link add mynet-shim link eno1 type macvlan mode bridge
-# ip addr add 10.100.212.65/32 dev mynet-shim
-# ip link set mynet-shim up
-# ip route add 10.100.212.0/24 dev mynet-shim
 #

@@ -7,7 +7,8 @@ services:
     image: mongo:4.2
     hostname: mongo
     volumes:
-      - ./mongo/data:/data/db
+      - volmongo:/data/db
+      - volmongo:/data/configdb
     networks:
       NET_DOCKER:
         ipv4_address: 10.1.10.10
@@ -34,20 +35,23 @@ services:
         limits:
           memory: 1g
     volumes:
-      - ./elasticsearch/data/data:/usr/share/elasticsearch/data
-      - ./elasticsearch/data/logs:/usr/share/elasticsearch/logs
+      - volelasticsearch:/usr/share/elasticsearch/data
+      - volelasticsearch:/usr/share/elasticsearch/logs
     ports:
       - 9200:9200
-      - 9300:9300
+    #   - 9300:9300
     networks:
       NET_DOCKER:
         ipv4_address: 10.1.10.11
 #
   graylog:
     container_name: container_graylog
-    image: graylog/graylog:4.2
+    # image: graylog/graylog:4.2
+    image: graylog/graylog:4.3.3
     hostname: graylog
-    privileged: true
+    # privileged: true
+    # cap_add:
+    #   - NET_ADMIN
     links:
       - mongo
       - elasticsearch
@@ -62,21 +66,20 @@ services:
     entrypoint: /usr/bin/tini -- wait-for-it elasticsearch:9200 --  /docker-entrypoint.sh
     ports:
       # Graylog web interface and REST API
-      - 9000:9000
+      - 9000:9000/tcp
       # Raw/Plaintext TCP
-      - 5555:5555
+      - 5555:5555/tcp
       # Syslog TCP
-      - 1514:1514
+      - 1514:1514/tcp
       # Syslog UDP
       - 1514:1514/udp
       # GELF TCP
-      - 12201:12201
+      - 12201:12201/tcp
       # GELF UDP
       - 12201:12201/udp
     volumes:
-      - ./graylog/data/data:/usr/share/graylog/data/data
-      - ./graylog/data/journal:/usr/share/graylog/data/journal
-    restart: unless-stopped
+      - volgraylog:/usr/share/graylog/data
+    # restart: unless-stopped
     networks:
       NET_DOCKER:
         ipv4_address: 10.1.10.12
@@ -110,9 +113,7 @@ networks:
       mode: l3
     ipam:
       config:
-        - 
-          subnet: 10.1.10.0/24
-          gateway: 10.1.10.1
+        - subnet: 10.1.10.0/24
   NET_LOCAL:
     name: NET_LOCAL
     driver: bridge
@@ -130,4 +131,12 @@ networks:
           aux_addresses:
             host: 10.100.212.65
 #
-#rm -frv ./REPOSITORIO/docker/graylog/elasticsearch/data;rm -frv ./REPOSITORIO/docker/graylog/mongo/data;rm -frv ./REPOSITORIO/docker/graylog/graylog
+#VOLUMES
+volumes:
+  volgraylog:
+    driver: local
+  volelasticsearch:
+    driver: local
+  volmongo:
+    driver: local
+#

@@ -1,19 +1,88 @@
-version: '3.9'
+version: '3.8'
+
+services:
+#Server MINIO 01
+  miniomaster:
+    image: bitnami/minio:latest
+    container_name: container_miniomaster
+    hostname: miniomaster
+    # restart: always
+    environment:
+      - MINIO_ROOT_USER=kelsey
+      - MINIO_ROOT_PASSWORD=kelseysantos
+    volumes:
+      - volnode0:/data
+      - volnode0:/certs
+    networks:
+      NET_212:
+        ipv4_address: 10.100.212.58
+    ports:
+      - '9000:9000'
+      - '9001:9001'
 #
-
-
+#Server MINIO REPLICATION
+  miniorep0:
+    image: bitnami/minio:latest
+    container_name: container_miniorep0
+    hostname: miniorep0
+    # restart: always
+    environment:
+      - MINIO_ROOT_USER=kelsey
+      - MINIO_ROOT_PASSWORD=kelseysantos
+    volumes:
+      - volnode1:/data
+      - volnode1:/certs
+    networks:
+      NET_212:
+        ipv4_address: 10.100.212.59
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+#
+#Server MINIO REPLICATION
+  miniorep1:
+    image: bitnami/minio:latest
+    container_name: container_miniorep1
+    hostname: miniorep1
+    # restart: always
+    environment:
+      - MINIO_ROOT_USER=kelsey
+      - MINIO_ROOT_PASSWORD=kelseysantos
+    volumes:
+      - volnode2:/data
+      - volnode2:/certs
+    networks:
+      NET_212:
+        ipv4_address: 10.100.212.60
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+#
 #NETWORK CONFIGURATION
 networks:
-  vlan10:
-    name: NET_vlan10
-    driver: ipvlan
-    driver_opts:
-      parent: eth0.10
-      mode: l3
+  NET_212:
+    name: NET_212
+    driver: macvlan
+    driver_opts: 
+      parent: eno1
+    #   macvlan_mode: bridge
     ipam:
       config:
-        - subnet: 10.1.10.0/24
-  green:
-    name: NET_green
-    driver: bridge
+        -
+          subnet: 10.100.212.0/24
+          gateway: 10.100.212.1
+          aux_addresses:
+            host: 10.100.212.65
+#
+# VOLUMES
+volumes:
+  volnode0:
+    name: volnode0
+    driver: local
+  volnode1:
+    name: volnode1
+    driver: local
+  volnode2:
+    name: volnode2
+    driver: local
 #
