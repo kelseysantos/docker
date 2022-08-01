@@ -46,6 +46,7 @@ Projetos para aplicações em Docker
 # Dicas para Docker Desktop / Server
 
 |   Nome    |   Comando |   Observação  |
+|   -   |   -   |   -   |
 |   Network |   docker inspect --format='{{ $n := .Name }}{{range .NetworkSettings.Networks}}{{ print .IPAddress "\t" $n "\n"}}{{end}}' $(sudo docker ps -q)    |   Visualizar os IPs que os Container pegou    |
 
 
