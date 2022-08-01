@@ -48,8 +48,11 @@ Projetos para aplicações em Docker
 |   Nome    |   Comando |   Observação  |
 |   -   |   -   |   -   |
 |   Network | ``` docker inspect --format='{{ $n := .Name }}{{range .NetworkSettings.Networks}}{{ print .IPAddress "\t" $n "\n"}}{{end}}' $(sudo docker ps -q)  ```  |   Visualizar os IPs que os Container pegou    |
-|   Health  |   ``` docker ps --filter "health=none" --format '{{.ID}} \t {{.Names}}' ```   |   Verificar se o Container tem o healthcheck no código    |
+|   Health  |   ```
+ docker ps --filter "health=none" --format '{{.ID}} \t {{.Names}}' 
+ ```   |   Verificar se o Container tem o healthcheck no código    |
 |   Audit   |   ``` find . -type f -name "docker-compose.yml" -exec grep -H "TZ=" {} \; ``` |   Verificar a Variável `TZ` dentro de um arquivo `*.yml`  |
+|   Find    |   ``` docker ps -aq | grep -v -E $(docker ps -aq --filter='label=deunhealth.restart.on.unhealthy' | paste -sd "|" -) | while read line ; do docker ps --filter "id=$line" --format "{{.Names}}"; done ``` 
 
 
 
