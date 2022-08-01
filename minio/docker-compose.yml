@@ -20,44 +20,6 @@ services:
       - '9000:9000'
       - '9001:9001'
 #
-#Server MINIO REPLICATION
-  miniorep0:
-    image: bitnami/minio:latest
-    container_name: container_miniorep0
-    hostname: miniorep0
-    # restart: always
-    environment:
-      - MINIO_ROOT_USER=kelsey
-      - MINIO_ROOT_PASSWORD=kelseysantos
-    volumes:
-      - volnode1:/data
-      - volnode1:/certs
-    networks:
-      NET_212:
-        ipv4_address: 10.100.212.59
-    ports:
-      - '9000:9000'
-      - '9001:9001'
-#
-#Server MINIO REPLICATION
-  miniorep1:
-    image: bitnami/minio:latest
-    container_name: container_miniorep1
-    hostname: miniorep1
-    # restart: always
-    environment:
-      - MINIO_ROOT_USER=kelsey
-      - MINIO_ROOT_PASSWORD=kelseysantos
-    volumes:
-      - volnode2:/data
-      - volnode2:/certs
-    networks:
-      NET_212:
-        ipv4_address: 10.100.212.60
-    ports:
-      - '9000:9000'
-      - '9001:9001'
-#
 #NETWORK CONFIGURATION
 networks:
   NET_212:
@@ -78,11 +40,5 @@ networks:
 volumes:
   volnode0:
     name: volnode0
-    driver: local
-  volnode1:
-    name: volnode1
-    driver: local
-  volnode2:
-    name: volnode2
     driver: local
 #

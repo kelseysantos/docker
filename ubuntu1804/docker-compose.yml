@@ -1,0 +1,34 @@
+version: '3.9'
+
+services:
+
+  ubuntu1804:
+    container_name: container_ubuntu1804
+    image: ubuntu:18.04
+    hostname: ubuntuminio
+    # restart: unless-stopped
+    privileged: true
+    # cap_add:
+    #   - NET_ADMIN
+    #   - SYS_ADMIN
+    networks:
+      - NET_212
+#NETWORK CONFIGURATION
+networks:
+  # NET_LOCAL:
+  #   name: NET_LOCAL
+  #   driver: bridge
+  NET_212:
+    name: NET_212
+    driver: macvlan
+    driver_opts: 
+      parent: eno1
+    #   macvlan_mode: bridge
+    ipam:
+      config:
+        -
+          subnet: 10.100.212.0/24
+          gateway: 10.100.212.1
+          aux_addresses:
+            host: 10.100.212.65
+#
