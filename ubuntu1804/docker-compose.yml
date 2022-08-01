@@ -12,7 +12,8 @@ services:
     #   - NET_ADMIN
     #   - SYS_ADMIN
     networks:
-      - NET_212
+      NET_212:
+        ipv4_address: 10.100.212.60
 #NETWORK CONFIGURATION
 networks:
   # NET_LOCAL:
