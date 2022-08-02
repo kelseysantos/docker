@@ -5,7 +5,7 @@ Projetos para aplicações em Docker
 
 # 1.Minio 
 
-https://dl.min.io/server/minio/release/linux-amd64/
+https://dl.min.io/server/minio/release/linux-amd64/ <br>
 https://docs.min.io/docs/minio-quickstart-guide.html
 
 ### Minio 1 Nodes
