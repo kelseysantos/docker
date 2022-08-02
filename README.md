@@ -55,11 +55,11 @@ https://docs.min.io/docs/minio-quickstart-guide.html
 |   Audit   |   ``` find . -type f -name "docker-compose.yml" -exec grep -H "TZ=" {} \; ``` |   Verificar a Variável `TZ` dentro de um arquivo `*.yml`  |
 
 
-        All containers without label "deunhealth.restart.on.unhealthy"
+ - All containers without label "deunhealth.restart.on.unhealthy"
 ```
 docker ps -aq | grep -v -E $(docker ps -aq --filter='label=deunhealth.restart.on.unhealthy' | paste -sd "|" -) | while read line ; do docker ps --filter "id=$line" --format "{{.Names}}"; done
 ```
-xxxxxxxxx
+ - All containers without label "deunhealth.restart.on.unhealthy" except the one named "deunhealth"
 ```
 docker ps -aq | grep -v -E $(docker ps -aq --filter='label=deunhealth.restart.on.unhealthy' | paste -sd "|" -) | while read line ; do name=$(docker ps --filter "id=$line" --format "{{.Names}}") && if [[ $name != "deunhealth" ]]; then echo "$name"; fi; done
 ```
