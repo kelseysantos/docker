@@ -5,6 +5,9 @@ Projetos para aplicações em Docker
 
 # 1.Minio 
 
+https://dl.min.io/server/minio/release/linux-amd64/
+https://docs.min.io/docs/minio-quickstart-guide.html
+
 ### Minio 1 Nodes
 
 | NETWORK       | VLAN    | Nome VLAN   | HOSTNAME      | Endereço de IP  |
@@ -61,7 +64,7 @@ xxxxxxxxx
 docker ps -aq | grep -v -E $(docker ps -aq --filter='label=deunhealth.restart.on.unhealthy' | paste -sd "|" -) | while read line ; do name=$(docker ps --filter "id=$line" --format "{{.Names}}") && if [[ $name != "deunhealth" ]]; then echo "$name"; fi; done
 ```
 
-# Instalar o Portainer para controle WEB de containers
+### Instalar o Portainer para controle WEB de containers
 
 ```
 docker run --name container_portainer -d -p 8000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v volportanier:/data portainer/portainer-ce:latest
