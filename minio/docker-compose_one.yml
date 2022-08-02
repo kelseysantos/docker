@@ -6,6 +6,7 @@ services:
     image: bitnami/minio:latest
     container_name: container_miniomaster
     hostname: miniomaster
+    # restart: always
     environment:
       - MINIO_ROOT_USER=kelsey
       - MINIO_ROOT_PASSWORD=kelseysantos
@@ -13,19 +14,14 @@ services:
       - volnode0:/data
       - volnode0:/certs
     networks:
-      # green:
       NET_212:
-        ipv4_address: 10.100.212.60
+        ipv4_address: 10.100.212.58
     ports:
       - '9000:9000'
       - '9001:9001'
-    restart: always
 #
 #NETWORK CONFIGURATION
 networks:
-  green:
-    name: NET_green
-    driver: bridge
   NET_212:
     name: NET_212
     driver: macvlan
@@ -43,5 +39,6 @@ networks:
 # VOLUMES
 volumes:
   volnode0:
+    name: volnode0
     driver: local
 #
