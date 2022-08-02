@@ -65,7 +65,7 @@ docker ps -aq | grep -v -E $(docker ps -aq --filter='label=deunhealth.restart.on
 ```
 
 ### Instalar o Portainer para controle WEB de containers
-
+ - Comando de docker run para executar o Portainer.
 ```
 docker run --name container_portainer -d -p 8000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v volportanier:/data portainer/portainer-ce:latest
 ```
