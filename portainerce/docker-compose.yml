@@ -1,0 +1,29 @@
+version: '3.9'
+services:
+# PORTAINER CE
+  portainerce:
+    container_name: container_portainerce
+    image: portainer/portainer-ce:latest
+    hostname: portainer
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+    #   - SYS_ADMIN
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - volportainer:/data
+    ports:
+      - 8880:9000
+    networks:
+      - NET_LOCAL
+#
+#NETWORK CONFIGURATION
+networks:
+  NET_LOCAL:
+    name: NET_LOCAL
+    driver: bridge
+# VOLUMES
+volumes:
+  volportainer:
+    driver: local
+#

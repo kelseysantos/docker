@@ -3,8 +3,7 @@ version: '3.8'
 services:
 #Server MINIO 01
   miniomaster:
-    # image: bitnami/minio:latest
-    image: minio/minio:latest
+    image: bitnami/minio:latest
     container_name: container_miniomaster
     hostname: miniomaster
     # restart: always
