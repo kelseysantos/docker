@@ -56,6 +56,13 @@ https://docs.min.io/docs/minio-quickstart-guide.html
  - HardDisk =   /var/run/docker.sock:/var/run/docker.sock<br>
                 volportainer:/data<br>
 
+# Sonarqube
+ - O SonarQube é a ferramenta líder para inspecionar continuamente a qualidade e a segurança do código de suas bases de código e orientar as equipes de desenvolvimento durante as revisões de código.
+
+| NETWORK       | VLAN    | Nome VLAN   | HOSTNAME      | Endereço de IP  |
+| - | - | - | - | - |
+|   LOCALHOST   |   bridge  |   NET_LOCAL   |   sonarqube   |   localhost   |
+
 # Final. Dicas/Comandos Docker
 
 |   Nome    |   Comando |   Observação  |

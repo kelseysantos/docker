@@ -11,8 +11,8 @@ services:
       - MINIO_ROOT_PASSWORD=miniocoti2022
       # - MINIO_VOLUMES="/storages/minio/disk{0...11}"
     volumes:
-      - /storages/minio/data:/data:rw
-      - /storages/minio/certs:/certs:rw
+      - volminio0:/data:rw
+      - volminiocerts:/certs:rw
     networks:
       - NET_LOCAL
     ports:
@@ -26,11 +26,11 @@ networks:
     driver: bridge
 #
 # VOLUMES
-# volumes:
-#   volminio0:
-#     name: volminio0
-#     driver: local
-#   volminiocerts:
-#     name: volminiocerts
-#     driver: local
+volumes:
+  volminio0:
+    name: volminio0
+    driver: local
+  volminiocerts:
+    name: volminiocerts
+    driver: local
 #

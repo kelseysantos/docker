@@ -1,0 +1,29 @@
+version: '3.9'
+services:
+  sonarqube:
+    container_name: container_sonarqube
+    image: sonarqube:lts-community
+    hostname: sonarqube
+    # restart: unless-stopped
+    # privileged: true
+    # cap_add:
+      # - NET_ADMIN
+      # - SYS_ADMIN
+    volumes:
+      - volsonarqube:/opt:rw
+    networks:
+      - NET_LOCAL
+    ports:
+      - 81:9000
+#
+#NETWORK CONFIGURATION
+networks:
+  NET_LOCAL:
+    name: NET_LOCAL
+    driver: bridge
+#
+# VOLUMES
+volumes:
+  volsonarqube:
+    name: volsonarqube
+    driver: local
