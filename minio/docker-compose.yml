@@ -1,20 +1,18 @@
-version: '3.8'
-
+version: '3.9'
 services:
-#Server MINIO 01
-  miniomaster:
+#Server MINIO 0
+  minio0:
     image: bitnami/minio:latest
-    container_name: container_miniomaster
-    hostname: miniomaster
+    container_name: container_minio0
+    hostname: minio0
     # restart: always
     environment:
-      - MINIO_ROOT_USER=kelsey
-      - MINIO_ROOT_PASSWORD=kelseysantos
-      # - MINIO_OPTS="--console-address :9001"
-      - MINIO_VOLUMES="/storages/minio/disk{0...11}"
+      - MINIO_ROOT_USER=miniocoti
+      - MINIO_ROOT_PASSWORD=miniocoti2022
+      # - MINIO_VOLUMES="/storages/minio/disk{0...11}"
     volumes:
-      - volnode0:/data
-      - volnode0:/certs
+      - /storages/minio/data:/data:rw
+      - /storages/minio/certs:/certs:rw
     networks:
       - NET_LOCAL
     ports:
@@ -28,8 +26,11 @@ networks:
     driver: bridge
 #
 # VOLUMES
-volumes:
-  volnode0:
-    name: volnode0
-    driver: local
+# volumes:
+#   volminio0:
+#     name: volminio0
+#     driver: local
+#   volminiocerts:
+#     name: volminiocerts
+#     driver: local
 #
