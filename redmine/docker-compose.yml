@@ -1,0 +1,71 @@
+version: '3.9'
+services:
+  dbredmine:
+    container_name: container_dbredmine
+    image: mysql:latest
+    restart: unless-stopped
+    # privileged: true
+    # cap_add:
+      # - NET_ADMIN
+    #   - SYS_ADMIN
+    environment:
+      # - MYSQL_USER=redmine
+      - MYSQL_ROOT_PASSWORD=0wVXangQ0X8
+      - MYSQL_DATABASE=redmine
+    volumes:
+      - voldbredmine:/var/lib/mysql
+    networks:
+      # NET_LOCAL:
+      NET_DOCKER:
+        ipv4_address: 10.1.10.2
+  redmine:
+    container_name: container_redmine
+    image: redmine
+    hostname: redmine
+    restart: always
+    # privileged: true
+    # cap_add:
+      # - NET_ADMIN
+    #   - SYS_ADMIN
+    depends_on:
+      - dbredmine
+    environment:
+      # - REDMINE_DB_USERNAME=redmine
+      - REDMINE_DB_MYSQL=redmine
+      - REDMINE_DB_PASSWORD=0wVXangQ0X8
+      - REDMINE_SECRET_KEY_BASE=HYNhKi216H8
+    volumes:
+      - volredmine:/usr/src/redmine/files
+    networks:
+      NET_LOCAL:
+      NET_DOCKER:
+        ipv4_address: 10.1.10.3
+    ports:
+      - 82:3000
+
+
+#NETWORK CONFIGURATION
+networks:
+  NET_LOCAL:
+    name: NET_LOCAL
+    driver: bridge
+  NET_DOCKER:
+    name: NET_DOCKER
+    driver: ipvlan
+    driver_opts:
+      # parent: eth0.10
+      mode: l3
+    ipam:
+      config:
+        -
+          subnet: 10.1.10.0/24
+          gateway: 10.1.10.1
+#
+volumes:
+  voldbredmine:
+    name: voldbredmine
+    driver: local
+  volredmine:
+    name: volredmine
+    driver: local
+#

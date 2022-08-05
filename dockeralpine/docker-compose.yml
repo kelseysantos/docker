@@ -34,4 +34,19 @@ networks:
           gateway: 10.100.212.1
           aux_addresses:
             host: 10.100.212.65
+  NET_DOCKER:
+    name: NET_DOCKER
+    driver: ipvlan
+    driver_opts:
+      # parent: eth0.10
+      mode: l3
+    ipam:
+      config:
+        -
+          subnet: 10.1.10.0/24
+          gateway: 10.1.10.1
+# ip link add mynet-shim link eno1 type macvlan mode bridge
+# ip addr add 10.100.212.65/32 dev mynet-shim
+# ip link set mynet-shim up
+# ip route add 10.100.212.0/24 dev mynet-shim
 #

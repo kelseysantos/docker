@@ -1,44 +1,36 @@
-version: '3.8'
-
+version: '3.9'
 services:
-#Server MINIO 01
-  miniomaster:
+#Server MINIO 0
+  minio0:
     image: bitnami/minio:latest
-    container_name: container_miniomaster
-    hostname: miniomaster
+    container_name: container_minio0
+    hostname: minio0
     # restart: always
     environment:
       - MINIO_ROOT_USER=kelsey
       - MINIO_ROOT_PASSWORD=kelseysantos
+      # - MINIO_VOLUMES="/storages/minio/disk{0...11}"
     volumes:
-      - volnode0:/data
-      - volnode0:/certs
+      - volminio0:/data:rw
+      - volminiocerts:/certs:rw
     networks:
-      NET_212:
-        ipv4_address: 10.100.212.58
+      - NET_LOCAL
     ports:
       - '9000:9000'
       - '9001:9001'
 #
 #NETWORK CONFIGURATION
 networks:
-  NET_212:
-    name: NET_212
-    driver: macvlan
-    driver_opts: 
-      parent: eno1
-    #   macvlan_mode: bridge
-    ipam:
-      config:
-        -
-          subnet: 10.100.212.0/24
-          gateway: 10.100.212.1
-          aux_addresses:
-            host: 10.100.212.65
+  NET_LOCAL:
+    name: NET_LOCAL
+    driver: bridge
 #
 # VOLUMES
 volumes:
-  volnode0:
-    name: volnode0
+  volminio0:
+    name: volminio0
+    driver: local
+  volminiocerts:
+    name: volminiocerts
     driver: local
 #
