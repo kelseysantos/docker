@@ -22,7 +22,7 @@ services:
     container_name: container_redmine
     image: redmine
     hostname: redmine
-    restart: always
+    # restart: always
     # privileged: true
     # cap_add:
       # - NET_ADMIN
@@ -31,24 +31,25 @@ services:
       - dbredmine
     environment:
       # - REDMINE_DB_USERNAME=redmine
-      - REDMINE_DB_MYSQL=redmine
+      - REDMINE_DB_MYSQL=dbredmine
       - REDMINE_DB_PASSWORD=0wVXangQ0X8
       - REDMINE_SECRET_KEY_BASE=HYNhKi216H8
     volumes:
       - volredmine:/usr/src/redmine/files
     networks:
-      NET_LOCAL:
+      NET_212:
+        ipv4_address: 10.100.212.64
       NET_DOCKER:
         ipv4_address: 10.1.10.3
     ports:
-      - 82:3000
+      - '82:3000'
 
 
 #NETWORK CONFIGURATION
 networks:
-  NET_LOCAL:
-    name: NET_LOCAL
-    driver: bridge
+  # NET_LOCAL:
+  #   name: NET_LOCAL
+  #   driver: bridge
   NET_DOCKER:
     name: NET_DOCKER
     driver: ipvlan
@@ -57,9 +58,20 @@ networks:
       mode: l3
     ipam:
       config:
+        - subnet: 10.1.10.0/24
+  NET_212:
+    name: NET_212
+    driver: macvlan
+    driver_opts: 
+      parent: eno1
+    #   macvlan_mode: bridge
+    ipam:
+      config:
         -
-          subnet: 10.1.10.0/24
-          gateway: 10.1.10.1
+          subnet: 10.100.212.0/24
+          gateway: 10.100.212.1
+          aux_addresses:
+            host: 10.100.212.65
 #
 volumes:
   voldbredmine:
