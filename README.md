@@ -12,14 +12,14 @@ https://docs.min.io/docs/minio-quickstart-guide.html
 
 | NETWORK       | VLAN    | Nome VLAN   | HOSTNAME      | Endereço de IP  |
 | - | - | - | - | - |
-| green         | bridge  | networkred  | miniomaster   | `dhcp`          | Acesso a Rede Externa   |
+| 127.0.0.0/8   | bridge  | networkred  | miniomaster   | `dhcp`          | Acesso a Rede Externa   |
  * HardDisk = ./volumes/hd00
 
 ### Minio 4 Nodes Multinodes
 
 | NETWORK       | VLAN    | Nome VLAN   | HOSTNAME      | Endereço de IP  |
 | - | - | - | - | - |
-| green         | bridge  | networkred  | miniomaster   | `dhcp`          | Acesso a Rede Externa   |
+| 127.0.0.0/8   | bridge  | networkred  | miniomaster   | `dhcp`          | Acesso a Rede Externa   |
 | 10.1.10.0/24  | 10      | vlan10      | miniomaster   | `10.1.10.10`    | Acesso Local Rede 10    |
 | 10.1.10.0/24  | 10      | vlan10      | minioslave0   | `10.1.10.11`    |
 | 10.1.10.0/24  | 10      | vlan10      | minioslave1   | `10.1.10.12`    |
@@ -30,7 +30,7 @@ https://docs.min.io/docs/minio-quickstart-guide.html
 
 | NETWORK       | VLAN    | Nome VLAN   | HOSTNAME      | Endereço de IP  |
 | - | - | - | - | - |
-| green         | bridge  | networkred  | minio0   | `dhcp`          | Acesso a Rede Externa   |
+| 127.0.0.0/8   | bridge  | networkred  | minio0   | `dhcp`          | Acesso a Rede Externa   |
 | 10.1.10.0/24  | 10      | vlan10      | minio0   | `10.1.10.10`    | Acesso Local Rede 10    |
 | 10.1.10.0/24  | 10      | vlan10      | minio1   | `10.1.10.11`    |
 | 10.1.10.0/24  | 10      | vlan10      | minio2   | `10.1.10.12`    |
@@ -40,7 +40,7 @@ https://docs.min.io/docs/minio-quickstart-guide.html
 
 | NETWORK       | VLAN    | Nome VLAN   | HOSTNAME      | Endereço de IP  |
 | - | - | - | - | - |
-| green         | bridge  | networkred  | urbackup   | `dhcp`          | Acesso a Rede Externa   |
+| 127.0.0.0/8   | bridge  | networkred  | urbackup   | `dhcp`          | Acesso a Rede Externa   |
  * HardDisk =   ./volumes/urbackup/varurbackup:/var/urbackup<br>
                 ./volumes/urbackup/backups:/backups<br>
                 ./volumes/urbackup/share:/usr/share/urbackup<br>
@@ -52,7 +52,7 @@ https://docs.min.io/docs/minio-quickstart-guide.html
 
 | NETWORK       | VLAN    | Nome VLAN   | HOSTNAME      | Endereço de IP  |
 | - | - | - | - | - |
-| NET_LOCAL |   bridge  |   NET_LOCAL   |   portainer   |   localhost   |
+| 127.0.0.0/8 |   bridge  |   NET_LOCAL   |   portainer   |   localhost   |
  - HardDisk =   /var/run/docker.sock:/var/run/docker.sock<br>
                 volportainer:/data<br>
 
@@ -61,7 +61,16 @@ https://docs.min.io/docs/minio-quickstart-guide.html
 
 | NETWORK       | VLAN    | Nome VLAN   | HOSTNAME      | Endereço de IP  |
 | - | - | - | - | - |
-|   LOCALHOST   |   bridge  |   NET_LOCAL   |   sonarqube   |   localhost   |
+|   127.0.0.0/8   |   bridge  |   NET_LOCAL   |   sonarqube   |   localhost   |
+
+# Redmine
+ - Esta é a configuração mais simples para executar redmine. Ele está rodando com MySQL:Latest, em uma rede Docker interna.
+
+| NETWORK       | VLAN    | Nome VLAN   | HOSTNAME      | Endereço de IP  |
+| - | - | - | - | - |
+|   10.100.212.0/24   |   maclan    |   NET_212   |   redmine   |   10.100.212.64   |
+|   10.1.10.0/24   |   ipvlan   |   NET_DOCKER   |   redmine   |   10.1.10.3   |
+
 
 # Final. Dicas/Comandos Docker
 
