@@ -1,6 +1,12 @@
-wget https://dl.min.io/server/minio/release/linux-amd64/archive/minio_20211109032145.0.0_amd64.deb -O minio.deb
+#-------------------------------------- ATUALIZAÇÃO E INSTALAÇÃO DO MINIO NO UBUNTU
+wget https://dl.min.io/server/minio/release/linux-amd64/minio_20220808183409.0.0_amd64.deb -O minio20220808.deb;dpkg -i minio20220808.deb
 
 mkdir disk0 disk1 disk2 disk3 disk4 disk5 disk6 disk7 disk8 disk9 disk10 disk11
+
+#----------------------------------------------------------------------------------------------- Adicionar Minio ao Alias
+echo -e "miniocoti\nminiocoti2022" | mc alias set minio0 http://10.100.212.201:9000
+mc alias set srv2 http://10.100.212.202:9000 pjcmtminio pjcmtm1n102020
+#-----------------------------------------------------------------------------------------------------------------------#
 
 #------------------------------------------------------------------------------------------- Instalar o MC Cliente MINIO
 wget https://dl.min.io/client/mc/release/linux-amd64/mc
@@ -23,7 +29,7 @@ MINIO_VOLUMES=http://srv{1...2}:9000/disco{1...12}
 MINIO_OPTS="--console-address :9001"
 MINIO_STORAGE_CLASS_STANDARD="EC:5"
 MINIO_ROOT_USER=pjcmtminio
-MINIO_ROOT_PASSWORD= pjcmtm1n102020
+MINIO_ROOT_PASSWORD=pjcmtm1n102020
 #MINIO_ACCESS_KEY=pjcmtminio
 #MINIO_SECRET_KEY=pjcmtm1n102020
 MINIO_DISTRIBUTED_MODE_ENABLED=yes
@@ -51,6 +57,7 @@ AssertFileIsExecutable=/usr/local/bin/minio
 [Service]
 WorkingDirectory=/usr/local
 
+#Atention user and group for work
 User=minio
 Group=minio
 ProtectProc=invisible
@@ -75,11 +82,6 @@ SendSIGKILL=no
 [Install]
 WantedBy=multi-user.target
 # Built for ${project.name}-${project.version} (${project.name})
-#-----------------------------------------------------------------------------------------------------------------------#
-
-#----------------------------------------------------------------------------------------------- Adicionar Minio ao Alias
-echo -e "miniocoti\nminiocoti2022" | mc alias set minio0 http://10.100.212.201:9000
-mc alias set srv2 http://10.100.212.202:9000 pjcmtminio pjcmtm1n102020
 #-----------------------------------------------------------------------------------------------------------------------#
 
 #----------------------------------------------------------------------------------------------------NETWORK UBUNTU 16.08
