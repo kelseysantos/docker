@@ -41,9 +41,6 @@ MINIO_DISTRIBUTED_NODES=srv{1...2}/disco{1...12}
 
 #------------------------------------------------------------------- UPDATE MINIO 20211109 TO 20220808 LINUX UBUNTU 18.04
 wget https://dl.min.io/server/minio/release/linux-amd64/minio_20220808183409.0.0_amd64.deb -O minio20220808.deb;dpkg -i minio20220808.deb
-systemctl start minio
-systemctl daemon-reload 
-systemctl start minio
 #-----------------------------------------------------------------------------------------------------------------------#
 
 #------------------------------------------------------ Caso não tenha o serviço configurado na instalação, só configurar
