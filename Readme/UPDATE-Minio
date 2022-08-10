@@ -1,21 +1,12 @@
 wget https://dl.min.io/server/minio/release/linux-amd64/archive/minio_20211109032145.0.0_amd64.deb -O minio.deb
 
-mkdir /storages/minio/disk0 -p
-mkdir /storages/minio/disk1 -p
-mkdir /storages/minio/disk2 -p
-mkdir /storages/minio/disk3 -p
-mkdir /storages/minio/disk4 -p
-mkdir /storages/minio/disk5 -p
-mkdir /storages/minio/disk6 -p
-mkdir /storages/minio/disk7 -p
-mkdir /storages/minio/disk8 -p
-mkdir /storages/minio/disk9 -p
-mkdir /storages/minio/disk10
-mkdir /storages/minio/disk11
+mkdir disk0 disk1 disk2 disk3 disk4 disk5 disk6 disk7 disk8 disk9 disk10 disk11
 
+#------------------------------------------------------------------------------------------- Instalar o MC Cliente MINIO
 wget https://dl.min.io/client/mc/release/linux-amd64/mc
 chmod +x mc
 mv mc /usr/local/bin/mc
+#-----------------------------------------------------------------------------------------------------------------------#
 
 groupadd -r minio-user;useradd -M -r -g minio-user minio-user;chown -R minio-user:minio-user /storages
 
