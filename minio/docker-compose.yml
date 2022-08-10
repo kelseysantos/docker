@@ -1,7 +1,24 @@
 version: '3.9'
 services:
+#Server MINIO 0
+  minio0:
+    image: bitnami/minio:latest
+    container_name: container_minio0
+    hostname: minio0
+    # restart: always
+    environment:
+      - MINIO_ROOT_USER=kelsey
+      - MINIO_ROOT_PASSWORD=kelseysantos
+      # - MINIO_VOLUMES="/storages/minio/disk{0...11}"
+    volumes:
+      - volminio0:/data:rw
+      - volminiocerts:/certs:rw
+    networks:
+      - NET_LOCAL
+    ports:
+      - '9000:9000'
+      - '9001:9001'
 #
-
 #NETWORK CONFIGURATION
 networks:
   NET_LOCAL:
