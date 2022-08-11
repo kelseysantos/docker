@@ -1,4 +1,4 @@
-#-------------------------------------- ATUALIZAÇÃO E INSTALAÇÃO DO MINIO NO UBUNTU
+#---------------------------------------------------------------------------- ATUALIZAÇÃO E INSTALAÇÃO DO MINIO NO UBUNTU
 wget https://dl.min.io/server/minio/release/linux-amd64/minio_20220808183409.0.0_amd64.deb -O minio20220808.deb;dpkg -i minio20220808.deb
 
 mkdir disk0 disk1 disk2 disk3 disk4 disk5 disk6 disk7 disk8 disk9 disk10 disk11
