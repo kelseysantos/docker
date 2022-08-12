@@ -19,10 +19,10 @@ groupadd -r minio-user;useradd -M -r -g minio-user minio-user;chown -R minio-use
 #------------------------------------------------------ CRIAR ARQUIVO PARA VARIAVEIS /etc/default/minio
 touch /etc/default/minio
 #---------------------------------------------- com 12 disco configurados {0...n} --------------------------------------#
-MINIO_ROOT_USER=miniocoti
-MINIO_ROOT_PASSWORD=miniocoti2022
+MINIO_ROOT_USER=pjcmtminio
+MINIO_ROOT_PASSWORD=pjcmtm1n102020
 MINIO_OPTS="--console-address :9001"
-MINIO_VOLUMES="/storages/minio/disk{0...11}"
+MINIO_VOLUMES="/disco{1...12}"
 MINIO_STORAGE_CLASS_STANDARD="EC:5"
 #---------------------------------------------- com nodes configurados {0...n} -----------------------------------------#
 MINIO_VOLUMES=http://srv{1...2}:9000/disco{1...12}
