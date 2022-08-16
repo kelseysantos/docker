@@ -110,6 +110,14 @@ grype bitnami/minio:latest
  curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin 
  ```
 
+# NETWORK
+ - Funcionamento da Rede MacVlan Docker no Linux, tem que colocar os seguintes comandos abaixo, onde o IP do host:`10.100.212.65/32` que está na rede `10.100.212.0/24`, tem que estar identificado. O nome que escolhi foi `rededocker` e depois fazer o roteamento da rede `10.100.212.0/24` (Geralmente a rede do meu roteador ou rede local) via a `rededocker`.
+### macvlan
+ - Para funcionar o MACVLAN no Linux
+```
+ip link add rededocker link eno1 type macvlan mode bridge;ip addr add 10.100.212.65/32 dev rededocker;ip link set rededocker up;ip route add 10.100.212.0/24 dev rededocker
+```
+
 ### Instalar o Portainer para controle WEB de containers
  - Comando de docker run para executar o Portainer.
 ```
