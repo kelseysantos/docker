@@ -79,6 +79,10 @@ https://docs.min.io/docs/minio-quickstart-guide.html
 |   10.100.212.0/24 | macvlan   |   NET_212 |   budge   |   10.100.212.203  |
  - HardDisk = ./budge/config:/config
 
+# EmulatorJS
+ - Emulador de Jogos Arcade no Browser.z
+
+
 
 # Final. Dicas/Comandos Docker
 
@@ -97,6 +101,11 @@ docker ps -aq | grep -v -E $(docker ps -aq --filter='label=deunhealth.restart.on
 ```
 docker ps -aq | grep -v -E $(docker ps -aq --filter='label=deunhealth.restart.on.unhealthy' | paste -sd "|" -) | while read line ; do name=$(docker ps --filter "id=$line" --format "{{.Names}}") && if [[ $name != "deunhealth" ]]; then echo "$name"; fi; done
 ```
+ - Verificar Vulnerabilidades na Imagem
+```
+grype bitnami/minio:latest
+```
+ - Para instalação do Grype no Linux ``` curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin ```
 
 ### Instalar o Portainer para controle WEB de containers
  - Comando de docker run para executar o Portainer.
