@@ -4,9 +4,46 @@ services:
     container_name: container_budge
     image: linuxserver/budge:latest
     hostname: budge
+    restart: unless-stopped
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=America/Cuiaba
     volumes:
-      - 
+      - ./budge/config:/config
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      NET_212:
+        ipv4_address: 10.100.212.203
+
+#NETWORK CONFIGURATION
+networks:
+  # NET_LOCAL:
+  #   name: NET_LOCAL
+  #   driver: bridge
+  NET_212:
+    name: NET_212
+    driver: macvlan
+    driver_opts: 
+      parent: eno1
+    #   macvlan_mode: bridge
+    ipam:
+      config:
+        -
+          subnet: 10.100.212.0/24
+          gateway: 10.100.212.1
+          aux_addresses:
+            host: 10.100.212.65
+  # NET_DOCKER:
+  #   name: NET_DOCKER
+  #   driver: ipvlan
+  #   driver_opts:
+  #     # parent: eth0.10
+  #     mode: l3
+  #   ipam:
+  #     config:
+  #       -
+  #         subnet: 10.1.10.0/24
+  #         gateway: 10.1.10.1
