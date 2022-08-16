@@ -82,6 +82,10 @@ https://docs.min.io/docs/minio-quickstart-guide.html
 # EmulatorJS
  - Emulador de Jogos Arcade no Browser.z
 
+# Netboot XYZ
+ - Seu sistema operacional preferido em um lugar.
+ - https://netboot.xyz/
+
 
 
 # Final. Dicas/Comandos Docker

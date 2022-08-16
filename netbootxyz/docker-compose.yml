@@ -1,0 +1,53 @@
+version: '3.9'
+services:
+  netbootxyz:
+    container_name: container_netbootxyz
+    image: linuxserver/netbootxyz:latest
+    hostname: netbootxyz
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - MENU_VERSION=1.9.9 #optional
+      - PORT_RANGE=30000:30010 #optional
+      - SUBFOLDER=/ #optional
+    volumes:
+      - ./config:/config
+      - ./assets:/assets
+    ports:
+      - 69:69/udp
+      - 80:80
+      - 3000:3000
+    networks:
+      NET_212:
+        ipv4_address: 10.100.212.203
+
+#NETWORK CONFIGURATION
+networks:
+  # NET_LOCAL:
+  #   name: NET_LOCAL
+  #   driver: bridge
+  NET_212:
+    name: NET_212
+    driver: macvlan
+    driver_opts: 
+      parent: eno1
+    #   macvlan_mode: bridge
+    ipam:
+      config:
+        -
+          subnet: 10.100.212.0/24
+          gateway: 10.100.212.1
+          aux_addresses:
+            host: 10.100.212.65
+  # NET_DOCKER:
+  #   name: NET_DOCKER
+  #   driver: ipvlan
+  #   driver_opts:
+  #     # parent: eth0.10
+  #     mode: l3
+  #   ipam:
+  #     config:
+  #       -
+  #         subnet: 10.1.10.0/24
+  #         gateway: 10.1.10.1
