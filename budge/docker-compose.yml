@@ -1,0 +1,12 @@
+version: '3.9'
+services:
+  budge:
+    container_name: container_budge
+    image: linuxserver/budge:latest
+    hostname: budge
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Cuiaba
+    volumes:
+      - 
