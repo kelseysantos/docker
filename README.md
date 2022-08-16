@@ -105,7 +105,10 @@ docker ps -aq | grep -v -E $(docker ps -aq --filter='label=deunhealth.restart.on
 ```
 grype bitnami/minio:latest
 ```
- - Para instalação do Grype no Linux ``` curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin ```
+ - Para instalação do Grype no Linux.
+ ```
+ curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin 
+ ```
 
 ### Instalar o Portainer para controle WEB de containers
  - Comando de docker run para executar o Portainer.
