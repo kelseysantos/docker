@@ -76,7 +76,7 @@ https://docs.min.io/docs/minio-quickstart-guide.html
 
 | NETWORK       | VLAN    | Nome VLAN   | HOSTNAME      | Endereço de IP  |
 | - | - | - | - | - |
-|   10.100.212.0/24 | macvlan   |   NET_212 |   budge   |   10.100.212.203  |
+|   127.0.0.1/8 | host   |   host |   budge   |   localhost  |
  - HardDisk = ./budge/config:/config
 
 # EmulatorJS
@@ -89,7 +89,8 @@ https://docs.min.io/docs/minio-quickstart-guide.html
 # Wireshark
  - Analizador de Redes
 
-
+# Deluge
+ - Client Torrent
 
 
 
