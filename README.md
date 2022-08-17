@@ -86,6 +86,11 @@ https://docs.min.io/docs/minio-quickstart-guide.html
  - Seu sistema operacional preferido em um lugar.
  - https://netboot.xyz/
 
+# Wireshark
+ - Analizador de Redes
+
+
+
 
 
 # Final. Dicas/Comandos Docker
