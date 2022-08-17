@@ -92,6 +92,9 @@ https://docs.min.io/docs/minio-quickstart-guide.html
 # Deluge
  - Client Torrent
 
+# Emby Stream
+ - Software para Stream Home Pessoal
+
 
 
 # Final. Dicas/Comandos Docker
