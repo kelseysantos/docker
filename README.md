@@ -95,6 +95,8 @@ https://docs.min.io/docs/minio-quickstart-guide.html
 # Emby Stream
  - Software para Stream Home Pessoal
 
+# Metube
+ - Download de Vídeos do Youtube para Assistir Off-Line.
 
 
 # Final. Dicas/Comandos Docker

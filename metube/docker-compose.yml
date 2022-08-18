@@ -1,0 +1,16 @@
+version: '3.9'
+services:
+  metube:
+    container_name: container_metube
+    image: alexta69/metube:latest
+    hostname: metube
+    restart: unless-stopped
+    # environment:
+    #   - PUID=1000
+    #   - PGID=1000
+    #   - TZ=America/Cuiaba
+    volumes:
+      - ./downloads:/downloads
+    ports:
+      - 8081:8081
+    network_mode: host
