@@ -1,0 +1,22 @@
+version: '3.9'
+services:
+  picoshare:
+    container_name: container_picoshare
+    image: mtlynch/picoshare:latest
+    hostname: picoshare
+    restart: unless-stopped    
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Cuiaba
+      - PORT=80
+      - PS_SHARED_SECRET=kelseysantos
+      # - LITESTREAM_BUCKET=YOUR-LITESTREAM-BUCKET
+      # - LITESTREAM_ENDPOINT=YOUR-LITESTREAM-ENDPOINT
+      # - LITESTREAM_ACCESS_KEY_ID=YOUR-ACCESS-ID
+      # - LITESTREAM_SECRET_ACCESS_KEY=YOUR-SECRET-ACCESS-KEY
+    volumes:
+      - ./data:/data
+    # ports:
+    #   - 80:3001
+    network_mode: host
