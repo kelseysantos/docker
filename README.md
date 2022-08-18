@@ -151,7 +151,7 @@ ip link add rededocker link eno1 type macvlan mode bridge;ip addr add 10.100.212
 
 # Rede Social
 
-Me pague um Café - https://www.buymeacoffee.com/kelseysantos)<br>
+Me pague um Café - https://www.buymeacoffee.com/kelseysantos<br>
 ![Youtube](https://img.shields.io/youtube/channel/subscribers/UCXS1xLbEwr12d97UyIEw6_w?style=social)<br>
 ![Twitter](https://img.shields.io/twitter/follow/kelseysantos?style=social)<br>
 ![GitHub](https://img.shields.io/github/followers/kelseysantos?style=social)<br>
