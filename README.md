@@ -139,8 +139,6 @@ docker run --name container_portainer -d -p 8000:9000 -v /var/run/docker.sock:/v
 ip link add rededocker link eno1 type macvlan mode bridge;ip addr add 10.100.212.65/32 dev rededocker;ip link set rededocker up;ip route add 10.100.212.0/24 dev rededocker
 ```
 
-# Sobre Docker Container
-
 # Rede Social
 
 Me pague um Café - https://www.buymeacoffee.com/kelseysantos<br>
