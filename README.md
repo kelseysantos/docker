@@ -141,14 +141,6 @@ ip link add rededocker link eno1 type macvlan mode bridge;ip addr add 10.100.212
 
 # Sobre Docker Container
 
-## Onde procurar ?
-- [Moby](https://github.com/moby/moby)
-- [Docker Images](https://hub.docker.com)
-- [Docker Compose](https://github.com/docker/compose/) (Defina e execute aplicativos de vários contêineres com o Docker)
-- [Docker Machine](https://github.com/docker/machine) (Gerenciamento de máquinas para um mundo centrado em contêineres)
-- [Docker Registry][distribution] (O conjunto de ferramentas do Docker para empacotar, enviar, armazenar e entregar conteúdo)
-- [Docker Swarm](https://github.com/docker/swarm) (Swarm: Um Docker-native clustering system)
-
 # Rede Social
 
 Me pague um Café - https://www.buymeacoffee.com/kelseysantos<br>
