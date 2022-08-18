@@ -1,5 +1,4 @@
 version: '3.9'
-
 services:
 # GRAYLOG
   mongo:
@@ -84,7 +83,7 @@ services:
       NET_DOCKER:
         ipv4_address: 10.1.10.12
       NET_212:
-        ipv4_address: 10.100.212.60
+        ipv4_address: 10.100.212.203
 #
 #Status Docker
   doku:
