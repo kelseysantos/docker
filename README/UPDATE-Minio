@@ -37,7 +37,8 @@ MINIO_DISTRIBUTED_NODES=srv{1...2}/disco{1...12}
 #-----------------------------------------------------------------------------------------------------------------------#
 
 #------------------------------------------------------------------- UPDATE MINIO 20211109 TO 20220808 LINUX UBUNTU 18.04
-wget https://dl.min.io/server/minio/release/linux-amd64/minio_20220808183409.0.0_amd64.deb -O minio20220808.deb;dpkg -i minio20220808.deb
+# wget https://dl.min.io/server/minio/release/linux-amd64/minio_20220808183409.0.0_amd64.deb -O minio20220808.deb;dpkg -i minio20220808.deb
+wget https://dl.min.io/server/minio/release/linux-amd64/minio_20220822235306.0.0_amd64.deb -O minio20220822.deb;dpkg -i minio20220822.deb
 #-----------------------------------------------------------------------------------------------------------------------#
 
 #------------------------------------------------------ Caso não tenha o serviço configurado na instalação, só configurar
@@ -64,6 +65,9 @@ ProtectProc=invisible
 
 EnvironmentFile=-/etc/default/minio
 ExecStartPre=/bin/bash -c "if [ -z \"${MINIO_VOLUMES}\" ]; then echo \"Variable MINIO_VOLUMES not set in /etc/default/minio\"; exit 1; fi"
+ExecStartPre=/bin/bash -c "if [ -z \"${MINIO_ACCESS_KEY}\" ]; then echo \"Variable MINIO_ACCESS_KEY not set in /etc/default/minio\"; exit 1; fi"
+ExecStartPre=/bin/bash -c "if [ -z \"${MINIO_SECRET_KEY}\" ]; then echo \"Variable MINIO_SECRET_KEY not set in /etc/default/minio\"; exit 1; fi"
+ExecStartPre=/bin/bash -c "if [ -z \"${MINIO_STORAGE_CLASS_STANDARD}\" ]; then echo \"Variable MINIO_STORAGE_CLASS_STANDARD not set in /etc/default/minio\"; exit 1; fi"
 ExecStart=/usr/local/bin/minio server $MINIO_OPTS $MINIO_VOLUMES
 
 # Let systemd restart this service always

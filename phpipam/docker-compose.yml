@@ -1,0 +1,67 @@
+version: '3.9'
+services:
+  mysql:
+    container_name: container_mysql
+    image: mysql:5.6
+    hostname: mysql
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Cuiaba
+      # - MYSQL_DATABASE=phpipam
+      - MYSQL_ROOT_PASSWORD=kelseysantos
+      - MYSQL_USER=ipam
+      - MYSQL_PASSWORD=ipam
+    volumes:
+      - ./mysql:/var/lib/mysql
+    ports:
+      - 3306:3306
+    networks:
+      - NET_DOCKER
+  ipam:
+    container_name: container_ipam
+    image: fynbab/ipam-server:latest
+    hostname: ipam
+    restart: unless-stopped
+    environment:
+      - MYSQL_ENV_MYSQL_ROOT_PASSWORD=kelseysantos
+      - GMAPS_API_KEY=AIzaSyAy8TpmYof4tDqjcBoXfnJVY8pN-PXDkD8
+      - GMAPS_API_GEOCODE_KEY=AIzaSyAy8TpmYof4tDqjcBoXfnJVY8pN-PXDkD8
+    links:
+      - mysql
+    ports:
+      - 80:80
+    networks:
+      - NET_DOCKER
+      - NET_LOCAL
+
+#NETWORK CONFIGURATION
+networks:
+  NET_LOCAL:
+    name: NET_LOCAL
+    driver: bridge
+  # NET_212:
+  #   name: NET_212
+  #   driver: macvlan
+  #   driver_opts: 
+  #     parent: eno1
+  #   #   macvlan_mode: bridge
+  #   ipam:
+  #     config:
+  #       -
+  #         subnet: 10.100.212.0/24
+  #         gateway: 10.100.212.1
+  #         aux_addresses:
+  #           host: 10.100.212.65
+  NET_DOCKER:
+    name: NET_DOCKER
+    driver: ipvlan
+    driver_opts:
+      # parent: eth0.10
+      mode: l3
+    ipam:
+      config:
+        -
+          subnet: 10.1.10.0/24
+          gateway: 10.1.10.1
