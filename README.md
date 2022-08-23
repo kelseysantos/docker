@@ -98,9 +98,11 @@ https://docs.min.io/docs/minio-quickstart-guide.html
 # Metube
  - Download de Vídeos do Youtube para Assistir Off-Line.
  
- # PHPIPam
+# PHPIPam
  - Gerenciamento de Networks
 
+# Rocket CHAT
+ - Comunicador de Comunidade ou Empresa.
 
 # Final. Dicas/Comandos Docker
 
