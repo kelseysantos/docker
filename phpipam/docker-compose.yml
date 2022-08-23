@@ -26,8 +26,8 @@ services:
     restart: unless-stopped
     environment:
       - MYSQL_ENV_MYSQL_ROOT_PASSWORD=kelseysantos
-      - GMAPS_API_KEY=AIzaSyAy8TpmYof4tDqjcBoXfnJVY8pN-PXDkD8
-      - GMAPS_API_GEOCODE_KEY=AIzaSyAy8TpmYof4tDqjcBoXfnJVY8pN-PXDkD8
+      - GMAPS_API_KEY=PEGARNOCONSOLEGOOGLE
+      - GMAPS_API_GEOCODE_KEY=PEGARNOCONSOLEGOOGLE
     links:
       - mysql
     ports:
