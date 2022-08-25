@@ -1,0 +1,17 @@
+version: '3.9'
+services:
+  heimdall:
+    image: linuxserver/heimdall:latest
+    container_name: container_heimdall
+    hostname: heimdall
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Cuiaba
+    volumes:
+      - ./config:/config
+    ports:
+      - 80:80
+      - 443:443
+    network_mode: host

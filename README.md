@@ -104,6 +104,12 @@ https://docs.min.io/docs/minio-quickstart-guide.html
 # Rocket CHAT
  - Comunicador de Comunidade ou Empresa.
 
+# Heimdall
+ - Bloco de Notas de Acesso a Sites
+
+# NGinx Proxy Reverso
+ - Proxy Reverso
+
 # Final. Dicas/Comandos Docker
 
 |   Nome    |   Comando |   Observação  |

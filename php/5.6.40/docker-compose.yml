@@ -1,0 +1,16 @@
+version: '3.9'
+services:
+  php56:
+    container_name: container_php56
+    image: php:5.6.40-apache
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Cuiaba
+    volumes:
+      - ./www:/var/www/html:ro
+      - ./php/php.ini:/usr/local/etc/php/php.ini:ro
+    ports:
+      - 80:80
+    network_mode: host

@@ -1,0 +1,19 @@
+version: '3.9'
+services:
+  proxyreverso:
+    container_name: container_proxyreverso
+    image: jc21/nginx-proxy-manager:latest
+    hostname: proxyreverso
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Cuiaba
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+    ports:
+      - 80:80
+      - 81:81
+      - 443:443
+    network_mode: host

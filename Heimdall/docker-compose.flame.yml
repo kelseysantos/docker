@@ -1,0 +1,18 @@
+version: '3.9'
+services:
+  flame:
+    container_name: container_flame
+    image: pawelmalak/flame:latest
+    hostname: flame
+    restart: unless-stopped
+    environment:
+      - PASSWORD=kelseysantos
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - ./data:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 80:5005
+    network_mode: host
