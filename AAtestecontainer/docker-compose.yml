@@ -1,41 +1,39 @@
 version: '3.9'
 services:
-  alpinekelsey:
-    build: .
-    container_name: container_alpinekelsey
-    image: kelseysantos/alpine:openssh
+  php56oci8:
+    # build: .
+    container_name: container_php56oci8
+    image: kelseysantos/php56-oci8:latest
     restart: unless-stopped
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=America/Cuiaba
-    # volumes:
-    #   - ./www:/var/www/html:ro
-    #   - ./php/php.ini:/usr/local/etc/php/php.ini:ro
-    # ports:
-    #   - 22:22
-    networks:
-      NET_212:
-        ipv4_address: 10.100.212.203
+    volumes:
+      - ./www:/var/www/html:ro
+      # - ./php/php.ini:/usr/local/etc/php/php.ini:ro
+    ports:
+      - 80:80
+    network_mode: host
 
 #NETWORK CONFIGURATION
-networks:
+# networks:
 #   NET_LOCAL:
 #     name: NET_LOCAL
 #     driver: bridge
-  NET_212:
-    name: NET_212
-    driver: macvlan
-    driver_opts: 
-      parent: eno1
-    #   macvlan_mode: bridge
-    ipam:
-      config:
-        -
-          subnet: 10.100.212.0/24
-          gateway: 10.100.212.1
-          aux_addresses:
-            host: 10.100.212.65
+  # NET_212:
+  #   name: NET_212
+  #   driver: macvlan
+  #   driver_opts: 
+  #     parent: eno1
+  #   #   macvlan_mode: bridge
+  #   ipam:
+  #     config:
+  #       -
+  #         subnet: 10.100.212.0/24
+  #         gateway: 10.100.212.1
+  #         aux_addresses:
+  #           host: 10.100.212.65
 #   NET_DOCKER:
 #     name: NET_DOCKER
 #     driver: ipvlan
