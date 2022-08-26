@@ -1,18 +1,23 @@
 version: '3.9'
 services:
-  php56:
-    container_name: container_php56
-    image: php:5.6.40-apache
+  gitlab:
+    # build: .
+    container_name: container_gitlab
+    image: gitlab/gitlab-ce:latest
+    hostname: gitlab
     restart: unless-stopped
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=America/Cuiaba
     volumes:
-      - ./www:/var/www/html:ro
-      - ./php/php.ini:/usr/local/etc/php/php.ini:ro
+      - ./etc:/etc/gitlab
+      - ./opt:/var/opt/gitlab
+      - ./log:/var/log/gitlab
     ports:
+      - 22:22
       - 80:80
+      - 443:443
     network_mode: host
 
 #NETWORK CONFIGURATION

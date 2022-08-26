@@ -1,52 +1,63 @@
 version: '3.9'
-
 services:
-#ALPINE Teste
-  alpine:
+  xxxalpine:
     build: .
-    container_name: container_dk
-    image: dk
-    hostname: dk
-    # restart: unless-stopped
-    privileged: true
-    cap_add:
-      - NET_ADMIN
-    #   - SYS_ADMIN
-    networks:
-      NET_212:
-        ipv4_address: 10.100.212.63
-#
+    container_name: container_xxxalpine
+    image: kelseysantos/xxxalpine:latest
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Cuiaba
+    # volumes:
+    #   - ./www:/var/www/html:ro
+    #   - ./php/php.ini:/usr/local/etc/php/php.ini:ro
+    # ports:
+    #   - 80:80
+    network_mode: host
+
 #NETWORK CONFIGURATION
-networks:
-  # NET_LOCAL:
-  #   name: NET_LOCAL
-  #   driver: bridge
-  NET_212:
-    name: NET_212
-    driver: macvlan
-    driver_opts: 
-      parent: eno1
-    #   macvlan_mode: bridge
-    ipam:
-      config:
-        -
-          subnet: 10.100.212.0/24
-          gateway: 10.100.212.1
-          aux_addresses:
-            host: 10.100.212.65
-  NET_DOCKER:
-    name: NET_DOCKER
-    driver: ipvlan
-    driver_opts:
-      # parent: eth0.10
-      mode: l3
-    ipam:
-      config:
-        -
-          subnet: 10.1.10.0/24
-          gateway: 10.1.10.1
-# ip link add mynet-shim link eno1 type macvlan mode bridge
-# ip addr add 10.100.212.65/32 dev mynet-shim
-# ip link set mynet-shim up
-# ip route add 10.100.212.0/24 dev mynet-shim
-#
+# networks:
+#   NET_LOCAL:
+#     name: NET_LOCAL
+#     driver: bridge
+#   NET_212:
+#     name: NET_212
+#     driver: macvlan
+#     driver_opts: 
+#       parent: eno1
+#     #   macvlan_mode: bridge
+#     ipam:
+#       config:
+#         -
+#           subnet: 10.100.212.0/24
+#           gateway: 10.100.212.1
+#           aux_addresses:
+#             host: 10.100.212.65
+#   NET_DOCKER:
+#     name: NET_DOCKER
+#     driver: ipvlan
+#     driver_opts:
+#       # parent: eth0.10
+#       mode: l3
+#     ipam:
+#       config:
+#         -
+#           subnet: 10.1.10.0/24
+#           gateway: 10.1.10.1
+
+# volumes:
+#   volmysqlghost:
+#     name: volmysqlghost
+#     driver: local
+#   volghost:
+#     name: volghost
+#     driver: local
+
+    # volumes:
+    #   - type: bind
+    #     source: /volume1/docker/influxdb2/data
+    #     target: /var/lib/influxdb2
+    #   - type: bind
+    #     source: /volume1/docker/influxdb2/config
+    #     target: /etc/influxdb2

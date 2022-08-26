@@ -2,6 +2,7 @@ FROM alpine:latest
 
 RUN apk update && apk upgrade
 RUN apk add bash bash-completion curl wget build-base
+RUN apk add kmod
 
 WORKDIR /app
 
