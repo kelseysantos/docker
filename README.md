@@ -110,6 +110,9 @@ https://docs.min.io/docs/minio-quickstart-guide.html
 # NGinx Proxy Reverso
  - Proxy Reverso
 
+# Unifi Controller Ubiquiti
+ - Controlador de Roteadores Ubiquiti
+
 # Final. Dicas/Comandos Docker
 
 |   Nome    |   Comando |   Observação  |

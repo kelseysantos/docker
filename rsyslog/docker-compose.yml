@@ -1,19 +1,22 @@
 version: '3.9'
 services:
-  php56oci8:
-    # build: .
-    container_name: container_php56oci8
-    image: kelseysantos/php56-oci8:latest
+  tomcat:
+    build: .
+    container_name: container_tomcat
+    image: kelseysantos/tomcat10-jdk8:latest
+    hostname: tomcat
     restart: unless-stopped
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Cuiaba
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+    # environment:
+    #   - PUID=1000
+    #   - PGID=1000
+    #   - TZ=America/Cuiaba
     volumes:
-      - ./www:/var/www/html:ro
-      # - ./php/php.ini:/usr/local/etc/php/php.ini:ro
+      - ./tomcat:/usr/local/tomcat
     ports:
-      - 80:80
+      - 8080:8080
     network_mode: host
 
 #NETWORK CONFIGURATION

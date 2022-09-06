@@ -1,0 +1,13 @@
+version: '3.9'
+services:
+  jitsi: 
+    container_name: container_jtsi
+    image: jitsi/web:unstable-2022-09-05
+    restart: always
+    volumes:
+      - ./config:/config
+      - ./transcripts:/usr/share/jitsi-meet/transcripts
+    ports:
+      - 80:80
+      - 443:443
+    network_mode: host

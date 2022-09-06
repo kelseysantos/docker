@@ -1,0 +1,6 @@
+#mountar bind de volumes
+docker run \
+--mount type=bind,source=/data/mysql,target=/var/lib/mysql mysql
+
+#create password base64
+echo -n 'username' | base64

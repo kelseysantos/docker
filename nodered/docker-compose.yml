@@ -1,0 +1,22 @@
+version: '3.9'
+services:
+  nodered:
+    container_name: container_nodered
+    image: nodered/node-red
+    hostname: nodered
+    # privileged: true
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Cuiaba
+    volumes:
+      - volnodered:/data
+    ports:
+      - 1880:1880
+    network_mode: host
+
+volumes:
+  volnodered:
+    name: volnodered
+    driver: local
