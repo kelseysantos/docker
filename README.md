@@ -105,13 +105,16 @@ https://docs.min.io/docs/minio-quickstart-guide.html
  - Comunicador de Comunidade ou Empresa.
 
 # Heimdall
- - Bloco de Notas de Acesso a Sites
+ - Bloco de Notas de Acesso a Sites.
 
 # NGinx Proxy Reverso
- - Proxy Reverso
+ - Proxy Reverso.
 
 # Unifi Controller Ubiquiti
- - Controlador de Roteadores Ubiquiti
+ - Controlador de Roteadores Ubiquiti.
+
+# JITSI MEET
+ - Conferencia community para empresas.
 
 # Final. Dicas/Comandos Docker
 
