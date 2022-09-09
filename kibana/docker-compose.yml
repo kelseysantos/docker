@@ -1,0 +1,58 @@
+version: '3.9'
+services:
+  elasticsearch:
+    container_name: container_elastic
+    image: elasticsearch:8.4.1
+    hostname: elastic
+    environment:
+      - discovery.type=single-node
+    # ports:
+    #   - 9200:9200
+    #   - 9300:9300
+    networks:
+      - NET_DOCKER
+#No Elastic realizar a criação do Token de Conexão.
+#elasticsearch-create-enrollment-token --scope kibana
+#bin/elasticsearch-setup-passwords interactive
+
+  kibana:
+    container_name: container_kibana
+    image: kibana:8.4.1
+    hostname: kibana
+    # restart: unless-stopped
+    # ports:
+    #   - 5601:5601
+    networks:
+      NET_DOCKER:
+      NET_212:
+        ipv4_address: 10.100.212.200
+    
+#NETWORK CONFIGURATION
+networks:
+#   NET_LOCAL:
+#     name: NET_LOCAL
+#     driver: bridge
+  NET_212:
+    name: NET_212
+    driver: macvlan
+    driver_opts: 
+      parent: eno1
+    #   macvlan_mode: bridge
+    ipam:
+      config:
+        -
+          subnet: 10.100.212.0/24
+          gateway: 10.100.212.1
+          aux_addresses:
+            host: 10.100.212.65
+  NET_DOCKER:
+    name: NET_DOCKER
+    driver: ipvlan
+    driver_opts:
+      # parent: eth0.10
+      mode: l3
+    ipam:
+      config:
+        -
+          subnet: 10.1.10.0/24
+          gateway: 10.1.10.1
