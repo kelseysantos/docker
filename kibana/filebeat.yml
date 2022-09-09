@@ -1,0 +1,8 @@
+output.elasticsearch:
+  hosts: ["elasticsearch"]
+  username: "elastic"
+  password: "tLUqVLjlid48rJaDj8P5"
+  # If using Elasticsearch's default certificate
+  # ssl.ca_trusted_fingerprint: "<es cert fingerprint>"
+setup.kibana:
+  host: "10.100.212.200"
