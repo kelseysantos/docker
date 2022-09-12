@@ -1,9 +1,10 @@
 version: '3.9'
 services:
-  alpinekelsey:
+  alpine:
     build: .
-    container_name: container_alpinekelsey
+    container_name: container_alpine
     image: kelseysantos/alpine:latest
+    hostname: apline
     # privileged: true
     # cap_add:
     #   - NET_ADMIN
