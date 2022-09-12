@@ -6,6 +6,8 @@ RUN apk add kmod
 
 WORKDIR /app
 
+VOLUME [ "/app" ]
+
 #Rodar modo Debug caso não tenha uma aplicação rodando.
 COPY start.sh /start.sh
 RUN chmod +x /start.sh

@@ -4,6 +4,10 @@ services:
     build: .
     container_name: container_alpinekelsey
     image: kelseysantos/alpine:latest
+    # privileged: true
+    # cap_add:
+    #   - NET_ADMIN
+    #   - SYS_ADMIN 
     restart: unless-stopped
     environment:
       - PUID=1000

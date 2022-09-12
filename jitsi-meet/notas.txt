@@ -1,0 +1,12 @@
+sudo firewall-cmd --permanent --add-port=80/tcp
+sudo firewall-cmd --permanent --add-port=443/tcp
+sudo firewall-cmd --permanent --add-port=4443/tcp
+sudo firewall-cmd --permanent --add-port=10000/udp
+sudo firewall-cmd --reload
+
+https://github.com/jitsi/docker-jitsi-meet
+
+https://jitsi.github.io/handbook/docs/devops-guide/devops-guide-docker/
+
+https://community.jitsi.org/t/setup-guide-jitsi-meet-native-multiple-6-jibri-docker-instances-working-on-the-same-aws-server/94181
+
