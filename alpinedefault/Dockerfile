@@ -10,7 +10,7 @@ WORKDIR /app
 
 # COPY index.html /var/www/localhost/htdocs/index.html
 
-# VOLUME [ "XXXXXXXXXXXXXXXX" ]
+# VOLUME [ "/var/www/localhost/htdocs" ]
 
 #Rodar modo Debug caso não tenha uma aplicação rodando.
 # COPY start.sh /start.sh
@@ -18,8 +18,5 @@ WORKDIR /app
 # CMD [ "/start.sh" ]
 
 # EXPOSE 80 443
-
-#Colocar aqui o nome da aplicação para start do container.
-# ENTRYPOINT [ "XXXXXXXX" ]
 
 ENTRYPOINT ["tail", "-f", "/dev/null"]
