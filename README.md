@@ -113,7 +113,7 @@ https://docs.min.io/docs/minio-quickstart-guide.html
 # Unifi Controller Ubiquiti
  - Controlador de Roteadores Ubiquiti.
 
-# JITSI MEET
+# JITSI MEET Community
  - Conferencia community para empresas.
 
 # Final. Dicas/Comandos Docker
