@@ -116,6 +116,9 @@ https://docs.min.io/docs/minio-quickstart-guide.html
 # JITSI MEET
  - Conferencia community para empresas.
 
+# Vault Garden
+ - Um sistema de cofre para guardar coisas que são sigilosas, como password, pastas de arquivos, bloco de anotações, etc.
+
 # Final. Dicas/Comandos Docker
 
 |   Nome    |   Comando |   Observação  |
