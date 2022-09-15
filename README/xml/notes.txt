@@ -1,0 +1,26 @@
+iDRAC7 Enterprise crack keygen
+(This will change your Dell service tag, you won't get iDRAC7 enterprise without having this service tag, 9QYZF42)
+ 
+find and download "OMSA71-CentOS6-x86_64-LiveDVD.iso". It must be this older version, newer versions replaced a tool we want with a dumbed down version.
+ 
+Boot into it from the server and launch gnome-terminal
+run these commands
+su
+smbios-sys-info --service-tag --set=9QYZF42
+reboot
+ 
+You may notice some "upgrading" screens. This is normal
+Once the system is booted log into the iDRAC
+ 
+Your new service tag should be updated to 9QYZF42
+Open your favorite file editor and create a new XML file with the contents at the bottom of the page, starting at <?xml...
+Load this file as a license in your iDRAC, log out, and back in.
+ 
+You now have iDRAC7 enterprise!
+ 
+Since iDRAC authenticates using your service tag, if you go back, the license will revert to idrac basic.
+This obviously isn't a solution for business because duplicate service tags will cause big problems on your network during deployment, and if somebody decides to call in for service.
+ 
+This isn't a terrible idea for the average homelabber though.
+ 
+Tested on 12th generation poweredge servers, Dell PowerEdge R#20/T#20
