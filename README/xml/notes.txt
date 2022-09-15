@@ -17,10 +17,29 @@ Open your favorite file editor and create a new XML file with the contents at th
 Load this file as a license in your iDRAC, log out, and back in.
  
 You now have iDRAC7 enterprise!
- 
-Since iDRAC authenticates using your service tag, if you go back, the license will revert to idrac basic.
-This obviously isn't a solution for business because duplicate service tags will cause big problems on your network during deployment, and if somebody decides to call in for service.
- 
-This isn't a terrible idea for the average homelabber though.
- 
-Tested on 12th generation poweredge servers, Dell PowerEdge R#20/T#20
+
+
+
+Inicialize pela Support Live Image https://www.dell.com/support/kbdoc/000124443/dell-poweredge-how-to-download-and-use-the-support-live-image
+
+Abra uma janela de terminal para executar este comando a fim de definir a etiqueta de serviço:
+
+smbios-sys-info --service-tag --set=YOURTAG
+
+Execute o comando 'racadm' abaixo para remover a licença temporária (se aplicável):
+
+racadm license delete -c idrac.embedded.1
+
+Reinicialize o sistema voltando à Support Live Image.
+
+Execute o seguinte comando 'racadm':
+
+racadm license view
+
+Verifique se a etiqueta de serviço é exibida corretamente.
+
+Copie o arquivo de licença para o servidor.
+
+Importe sua licença perpétua:
+
+racadm license import -f /mountpath/yourlicensefilename.xml -c idrac.embedded.1
