@@ -74,11 +74,6 @@ https://docs.min.io/docs/minio-quickstart-guide.html
 # Budge
  - Aplicativo de finanças.
 
-| NETWORK       | VLAN    | Nome VLAN   | HOSTNAME      | Endereço de IP  |
-| - | - | - | - | - |
-|   127.0.0.1/8 | host   |   host |   budge   |   localhost  |
- - HardDisk = ./budge/config:/config
-
 # EmulatorJS
  - Emulador de Jogos Arcade no Browser.z
 
