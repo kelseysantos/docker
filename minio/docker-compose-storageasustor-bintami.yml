@@ -2,7 +2,7 @@ version: '3.9'
 services:
 #Server MINIO 0
   miniobkp:
-    image: bitnami/minio:latest
+    image: bitnami/minio:2022.8.8
     container_name: container_miniobkp
     hostname: miniobkp
     restart: always
