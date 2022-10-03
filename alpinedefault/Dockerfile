@@ -2,9 +2,12 @@ FROM alpine:latest
 
 RUN apk update && apk upgrade \
     && apk add bash bash-completion curl wget build-base \
-    && apk add kmod
+    && apk add kmod \
+    && rm -fr /var/cache/apk/*
 
-# RUN apk add apache2
+# Configuration for UBUNTU
+# rm -fr /var/cache/apt/*
+# apt install -y --no-install-recomends PACOTE
 
 WORKDIR /app
 

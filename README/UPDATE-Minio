@@ -112,5 +112,8 @@ mc alias set minio1 https://minio1.example.com:9000 adminuser adminpassword
 mc alias set minio2 https://minio2.example.com:9000 adminuser adminpassword
 mc alias set minio3 https://minio3.example.com:9000 adminuser adminpassword
 mc admin replicate add minio1 minio2 minio3
+mc admin replicate remove minioone --all --force
 https://min.io/docs/minio/linux/operations/install-deploy-manage/multi-site-replication.html
+A Replicação Tem que ser direto do servidor que estiver com os dados para um servidor que esteja sem dados.
+Após a replicação todos os dados alterados serão replicados para todos que estão configurados como replicação.
 #-----------------------------------------------------------------------------------------------------------------------#

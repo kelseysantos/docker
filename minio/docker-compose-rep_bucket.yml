@@ -2,10 +2,10 @@ version: '3.8'
 
 services:
 #Server MINIO 01
-  miniomaster:
+  srv01:
     image: bitnami/minio:latest
-    container_name: container_miniomaster
-    hostname: miniomaster
+    container_name: container_srv01
+    hostname: srv01
     # restart: always
     environment:
       - MINIO_ROOT_USER=kelsey
@@ -15,16 +15,16 @@ services:
       - volnode0:/certs
     networks:
       NET_212:
-        ipv4_address: 10.100.212.58
+        ipv4_address: 10.100.212.100
     ports:
       - '9000:9000'
       - '9001:9001'
 #
 #Server MINIO REPLICATION
-  miniorep0:
+  srv02:
     image: bitnami/minio:latest
-    container_name: container_miniorep0
-    hostname: miniorep0
+    container_name: container_srv02
+    hostname: srv02
     # restart: always
     environment:
       - MINIO_ROOT_USER=kelsey
@@ -34,16 +34,16 @@ services:
       - volnode1:/certs
     networks:
       NET_212:
-        ipv4_address: 10.100.212.59
+        ipv4_address: 10.100.212.101
     ports:
       - '9000:9000'
       - '9001:9001'
 #
 #Server MINIO REPLICATION
-  miniorep1:
+  srv03:
     image: bitnami/minio:latest
-    container_name: container_miniorep1
-    hostname: miniorep1
+    container_name: container_srv03
+    hostname: srv03
     # restart: always
     environment:
       - MINIO_ROOT_USER=kelsey
@@ -53,7 +53,7 @@ services:
       - volnode2:/certs
     networks:
       NET_212:
-        ipv4_address: 10.100.212.60
+        ipv4_address: 10.100.212.102
     ports:
       - '9000:9000'
       - '9001:9001'
