@@ -5,7 +5,7 @@ mkdir disk0 disk1 disk2 disk3 disk4 disk5 disk6 disk7 disk8 disk9 disk10 disk11
 
 #----------------------------------------------------------------------------------------------- Adicionar Minio ao Alias
 echo -e "miniocoti\nminiocoti2022" | mc alias set minio0 http://10.100.212.201:9000
-mc alias set srv2 http://10.100.212.202:9000 pjcmtminio pjcmtm1n102020
+mc alias set srv2 http://10.100.212.202:9000 adminuser adminpassword
 #-----------------------------------------------------------------------------------------------------------------------#
 
 #------------------------------------------------------------------------------------------- Instalar o MC Cliente MINIO
@@ -19,8 +19,8 @@ groupadd -r minio-user;useradd -M -r -g minio-user minio-user;chown -R minio-use
 #------------------------------------------------------ CRIAR ARQUIVO PARA VARIAVEIS /etc/default/minio
 touch /etc/default/minio
 #---------------------------------------------- com 12 disco configurados {0...n} --------------------------------------#
-MINIO_ROOT_USER=pjcmtminio
-MINIO_ROOT_PASSWORD=pjcmtm1n102020
+MINIO_ROOT_USER=adminuser
+MINIO_ROOT_PASSWORD=adminpassword
 MINIO_OPTS="--console-address :9001"
 MINIO_VOLUMES="/disco{1...12}"
 MINIO_STORAGE_CLASS_STANDARD="EC:5"
@@ -28,10 +28,10 @@ MINIO_STORAGE_CLASS_STANDARD="EC:5"
 MINIO_VOLUMES=http://srv{1...2}:9000/disco{1...12}
 MINIO_OPTS="--console-address :9001"
 MINIO_STORAGE_CLASS_STANDARD="EC:5"
-MINIO_ROOT_USER=pjcmtminio
-MINIO_ROOT_PASSWORD=pjcmtm1n102020
-#MINIO_ACCESS_KEY=pjcmtminio
-#MINIO_SECRET_KEY=pjcmtm1n102020
+MINIO_ROOT_USER=adminuser
+MINIO_ROOT_PASSWORD=adminpassword
+#MINIO_ACCESS_KEY=adminuser
+#MINIO_SECRET_KEY=adminpassword
 MINIO_DISTRIBUTED_MODE_ENABLED=yes
 MINIO_DISTRIBUTED_NODES=srv{1...2}/disco{1...12}
 #-----------------------------------------------------------------------------------------------------------------------#
@@ -100,4 +100,17 @@ network:
       nameservers:
         addresses: [10.100.254.10,8.8.8.8]
       dhcp6: no
+#-----------------------------------------------------------------------------------------------------------------------#
+
+# Start UPDATE Bucket independente
+mc replicate resync start srv1/rancher.log --remote-bucket "arn:minio:replication::fd:rancher.log"
+https://min.io/docs/minio/linux/reference/minio-mc/mc-replicate-resync.html
+#-----------------------------------------------------------------------------------------------------------------------#
+
+# Replication Server Minio
+mc alias set minio1 https://minio1.example.com:9000 adminuser adminpassword
+mc alias set minio2 https://minio2.example.com:9000 adminuser adminpassword
+mc alias set minio3 https://minio3.example.com:9000 adminuser adminpassword
+mc admin replicate add minio1 minio2 minio3
+https://min.io/docs/minio/linux/operations/install-deploy-manage/multi-site-replication.html
 #-----------------------------------------------------------------------------------------------------------------------#
