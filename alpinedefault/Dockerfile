@@ -1,8 +1,8 @@
 FROM alpine:latest
 
-RUN apk update && apk upgrade
-RUN apk add bash bash-completion curl wget build-base
-RUN apk add kmod
+RUN apk update && apk upgrade \
+    && apk add bash bash-completion curl wget build-base \
+    && apk add kmod
 
 # RUN apk add apache2
 
