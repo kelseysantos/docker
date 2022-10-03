@@ -126,7 +126,6 @@ networks:
           aux_addresses:
             host: 10.100.212.65
 #
-
 volumes:
   volminio0:
     name: volminio0
