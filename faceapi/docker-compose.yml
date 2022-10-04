@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  faceapi:
+    build: .
+    container_name: container_faceapi
+    image: kelseysantos/faceapi:latest
+    hostname: faceapi
+    ports:
+      - 3000:3000
+    network_mode: host
