@@ -117,3 +117,7 @@ https://min.io/docs/minio/linux/operations/install-deploy-manage/multi-site-repl
 A Replicação Tem que ser direto do servidor que estiver com os dados para um servidor que esteja sem dados.
 Após a replicação todos os dados alterados serão replicados para todos que estão configurados como replicação.
 #-----------------------------------------------------------------------------------------------------------------------#
+mc ls srv1 #listar os Bauckets
+mc admin bucket info srv1/XXXXXXXX #visualisar tamanho de objetos e historiograma
+mc admin bucket remote ls srv1 #listar todos os remotos ARN
+mc watch --recursive srv1/XXXXXXXX #Assitir o Bucket ver se ele está em processamento
