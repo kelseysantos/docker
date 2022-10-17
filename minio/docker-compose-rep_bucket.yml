@@ -15,7 +15,7 @@ services:
       - volnode0:/certs
     networks:
       NET_212:
-        ipv4_address: 10.100.212.100
+        ipv4_address: 10.100.212.80
     ports:
       - '9000:9000'
       - '9001:9001'
@@ -34,7 +34,7 @@ services:
       - volnode1:/certs
     networks:
       NET_212:
-        ipv4_address: 10.100.212.101
+        ipv4_address: 10.100.212.81
     ports:
       - '9000:9000'
       - '9001:9001'
@@ -53,7 +53,7 @@ services:
       - volnode2:/certs
     networks:
       NET_212:
-        ipv4_address: 10.100.212.102
+        ipv4_address: 10.100.212.82
     ports:
       - '9000:9000'
       - '9001:9001'

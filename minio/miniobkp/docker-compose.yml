@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  miniomcbkp:
+    build: .
+    container_name: container_miniomcbkp
+    image: kelseysantos/miniobackup:latest
+    hostname: miniomcbkp
+    restart: unless-stopped
+    environment:
+      - MC_HOST_SOURCE=http://kelsey:kelseysantos@10.100.212.80:9000
+      - MC_HOST_DESTINATION=http://kelsey:kelseysantos@10.100.212.81:9000
+      # - SCHEDULE=0 1 * * *
+    network_mode: host
