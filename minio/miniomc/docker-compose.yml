@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  miniomc:
+    build: .
+    container_name: container_miniomc
+    image: kelseysantos/miniomc:latest
+    hostname: miniomc
+    restart: unless-stopped
+    network_mode: host
