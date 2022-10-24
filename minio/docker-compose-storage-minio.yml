@@ -6,7 +6,7 @@ services:
     hostname: miniobkp
     restart: always
     environment:
-      - MINIO_ROOT_USER=pjcmtminio
+      - MINIO_ROOT_USER=kelsey
       - MINIO_ROOT_PASSWORD=password
       # - MINIO_OPTS="--console-address :9001"
       # - MINIO_VOLUMES="/disco{0...11}"
