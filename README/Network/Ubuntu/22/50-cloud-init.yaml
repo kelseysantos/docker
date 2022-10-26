@@ -1,0 +1,22 @@
+network:
+  renderer: networkd
+  ethernets:
+    # interface name
+    eno1:
+      dhcp4: false
+      # IP address/subnet mask
+      addresses: [10.100.212.65/24]
+      # default gateway
+      # [metric] : set priority (specify it if multiple NICs are set)
+      # lower value is higher priority
+      routes:
+        - to: default
+          via: 10.100.212.1
+          metric: 100
+      nameservers:
+        # name server to bind
+        addresses: [10.100.254.10,8.8.8.8]
+        # DNS search base
+        search: [pcmt.local,seguranca.local]
+      dhcp6: false
+  version: 2

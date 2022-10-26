@@ -1,0 +1,15 @@
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    ens3:
+      dhcp4: no
+      # IP address/subnet mask
+      addresses: [10.100.212.65/24]
+      # default gateway
+      gateway4: 10.100.212.1
+      nameservers:
+        # name server this host refers
+        addresses: [10.100.254.10,8.8.8.8]
+        search: [pcmt.local,seguranca.local]
+      dhcp6: no

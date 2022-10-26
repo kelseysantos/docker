@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  miniooperator:
+    container_name: container_miniooperator
+    image: minio/operator:v4.5.3
+    restart: unless-stopped
+    hostname: miniooperator
+    environment:
+      - KUBERNETES_SERVICE_HOST=pjccoti:10.8.4.201
+      - KUBERNETES_SERVICE_PORT=9000
+    network_mode: host
