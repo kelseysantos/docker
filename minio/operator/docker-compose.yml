@@ -1,11 +1,31 @@
 version: '3.8'
 services:
   miniooperator:
+    build: .
     container_name: container_miniooperator
-    image: minio/operator:v4.5.3
-    restart: unless-stopped
+    image: kelseysantos/miniooperator:lastest
     hostname: miniooperator
-    environment:
-      - KUBERNETES_SERVICE_HOST=pjccoti:10.8.4.201
-      - KUBERNETES_SERVICE_PORT=9000
-    network_mode: host
+    restart: unless-stopped
+    # privileged: true
+    # cap_add:
+    #   - NET_ADMIN
+    #   - SYS_ADMIN
+    networks:
+      NET_212:
+        ipv4_address: 10.100.212.203
+#NETWORK CONFIGURATION
+networks:
+  NET_212:
+    name: NET_212
+    driver: macvlan
+    driver_opts: 
+      parent: eno1
+      # macvlan_mode: bridge
+    ipam:
+      config:
+        -
+          subnet: 10.100.212.0/24
+          gateway: 10.100.212.1
+          aux_addresses:
+            host: 10.100.212.65
+#

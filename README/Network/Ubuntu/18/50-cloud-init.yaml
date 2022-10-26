@@ -13,3 +13,10 @@ network:
         addresses: [10.100.254.10,8.8.8.8]
         search: [pcmt.local,seguranca.local]
       dhcp6: no
+
+# network:
+#   version: 2
+#   renderer: networkd
+#   ethernets:
+#     enp0s3:
+#       dhcp4: yes
