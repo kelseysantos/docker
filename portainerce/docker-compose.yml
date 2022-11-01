@@ -12,7 +12,7 @@ services:
     #   - SYS_ADMIN
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - volportainer:/data
+      - volportainerce:/data
     ports:
       - 19000:9000
       - 19443:9443
@@ -20,6 +20,7 @@ services:
     network_mode: bridge
 # VOLUMES
 volumes:
-  volportainer:
+  volportainerce:
+    name: volportainerce
     driver: local
 #

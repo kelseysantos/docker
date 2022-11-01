@@ -121,6 +121,7 @@ https://docs.min.io/docs/minio-quickstart-guide.html
 |   Network |   ``` docker inspect --format='{{ $n := .Name }}{{range .NetworkSettings.Networks}}{{ print .IPAddress "\t" $n "\n"}}{{end}}' $(sudo docker ps -q) ```  |   Visualizar os IPs que os Container pegou    |
 |   Health  |   ``` docker ps --filter "health=none" --format '{{.ID}} \t {{.Names}}'   ``` |   Verificar se o Container tem o healthcheck no código    |
 |   Audit   |   ``` find . -type f -name "docker-compose.yml" -exec grep -H "TZ=" {} \; ``` |   Verificar a Variável `TZ` dentro de um arquivo `*.yml`  |
+|   IMAGE   |   ``` docker rmi $(docker images | cut -d 'R' -f 1 | cut -b 34-46) ```    |   Deletar Imagens que não estão sendo usadas ou rodando  |
 
 
  - All containers without label "deunhealth.restart.on.unhealthy"

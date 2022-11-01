@@ -1,12 +1,18 @@
-FROM centos:7.9.2009
+FROM rockylinux:8
 
-WORKDIR /centos
+WORKDIR /redhat
 
-RUN yum update -y;yum upgrade -y
+RUN dnf update -y && \
+    dnf install -y epel-release elrepo-release && \
+    dnf upgrade -y && dnf clean all
 
-RUN yum install -y yum-plugin-priorities epel-release bash curl wget && \
-    yum install -y dnsmasq
+RUN yum install -y bash curl wget nano vim && \
+    yum install -y dnsmasq bind-utils && \
+    systemctl enable dnsmasq
 
-RUN systemctl enable dnsmasq;systemctl start dnsmasq
+CMD [ "/usr/sbin/init" ]
 
-ENTRYPOINT [ "/bin/bash" ]
+# COPY start.sh start.sh
+# CMD [ "/bin/bash", "start.sh" ]
+
+# ENTRYPOINT [ "systemctl", "start", "dnsmasq"]

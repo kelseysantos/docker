@@ -4,7 +4,6 @@ services:
     build: .
     container_name: container_rockylinux
     image: kelseysantos/rockylinux:dns
-    restart: unless-stopped
     privileged: true
     # cap_add:
     #   - NET_ADMIN
