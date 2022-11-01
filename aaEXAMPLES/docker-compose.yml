@@ -5,6 +5,15 @@ services:
     container_name: container_alpine
     image: kelseysantos/alpine:latest
     hostname: apline
+    # deploy:
+    #   placement:
+    #     constraints:
+    #         - "node.role==worker"
+    #   mode: replicated
+    #   replicas: 2
+    #   resource:
+    #     cpus: "0.50"
+    #     memory: 256M
     # privileged: true
     # cap_add:
     #   - NET_ADMIN
