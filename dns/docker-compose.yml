@@ -1,18 +1,20 @@
 version: '3.8'
 services:
-  rockylinux:
+  dnsmasq:
     build: .
-    container_name: container_rockylinux
-    image: kelseysantos/rockylinux:dns
+    container_name: container_dnsmasq
+    image: kelseysantos/dnsmasq:latest
     restart: unless-stopped
     privileged: true
     # cap_add:
     #   - NET_ADMIN
     #   - SYS_ADMIN
     hostname: dns1
+    volumes:
+      - ./dnsmasq.conf:/etc/dnsmasq.conf
     networks:
       NET_212:
-        ipv4_address: 10.100.212.203
+        ipv4_address: 10.10.10.203
 
 #NETWORK MACVLAN CONFIGURATION
 networks:
@@ -24,8 +26,8 @@ networks:
     #   macvlan_mode: bridge
     ipam:
       config:
-        - subnet: 10.100.212.0/24
-          #ip_range: 10.100.212.65/26
-          gateway: 10.100.212.1
+        - subnet: 10.10.10.0/24
+          #ip_range: 10.10.10.65/26
+          gateway: 10.10.10.1
           aux_addresses:
-            host: 10.100.212.65
+            host: 10.10.10.65
