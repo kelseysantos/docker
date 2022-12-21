@@ -7,9 +7,8 @@ RUN dnf update -y && \
     dnf upgrade -y && dnf clean all && \
     yum install -y bash curl wget nano vim
     # yum install -y dnsmasq bind-utils
-RUN 
 
-# RUN systemctl enable dnsmasq
+# RUN systemctl enable --now elasticsearch
 
 # EXPOSE 53
 
