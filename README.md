@@ -148,12 +148,23 @@ grype bitnami/minio:latest
 docker run --name container_portainer -d -p 8000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v volportanier:/data portainer/portainer-ce:latest
 ```
 
-# NETWORK
- - Funcionamento da Rede MacVlan Docker no Linux, tem que colocar os seguintes comandos abaixo, onde o IP do host:`10.100.212.65/32` que está na rede `10.100.212.0/24`, tem que estar identificado. O nome que escolhi foi `rededocker` e depois fazer o roteamento da rede `10.100.212.0/24` (Geralmente a rede do meu roteador ou rede local) via a `rededocker`.
-### macvlan
- - Para funcionar o MACVLAN no Linux
+### Melhor Exemplo com MACVLAN no HOST:
+ - A `rededocker` é o nome da interface criada de exemplo.
+ - A interface física de exemplo é a `eno1` do HOST.
 ```
-ip link add rededocker link eno1 type macvlan mode bridge;ip addr add 10.100.212.65/32 dev rededocker;ip link set rededocker up;ip route add 10.100.212.0/24 dev rededocker
+ip link add rededocker link eno1 type macvlan mode bridge
+```
+ - O Endereço de IP do HOST é o `10.100.100.65`, tem que especificar.
+```
+ip addr add 10.100.100.65/32 dev rededocker
+```
+ - Subir a interface `rededocker` para comunicação.
+```
+ip link set rededocker up
+```
+ - O range de IP à ser alcançado dos container são **10.100.100.97-126/255.255.255.224**, network: `10.100.100.96/27` rodando no HOST Hospedeiro.
+```
+ip route add 10.100.100.96/27 dev rededocker
 ```
 
 # Rede Social
