@@ -1,9 +1,9 @@
 version: '3.9'
 services:
-  proxyreverso:
-    container_name: container_proxyreverso
+  nginxproxy:
+    container_name: nginxproxy_container
     image: jc21/nginx-proxy-manager:latest
-    hostname: proxyreverso
+    hostname: nginxproxy
     restart: unless-stopped
     environment:
       - PUID=1000
