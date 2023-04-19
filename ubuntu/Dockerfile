@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:22.10
 
 RUN apt update -y && apt full-upgrade -y && apt upgrade -y && apt autoremove -y && apt clean && \
     apt install --no-install-recommends -y apt-utils wget curl vim nano && \
