@@ -1,4 +1,4 @@
-FROM rockylinux:9.1-minimal
+FROM rockylinux:9.2-minimal
 
 WORKDIR /haproxy
 
