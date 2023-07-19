@@ -167,6 +167,130 @@ ip link set rededocker up
 ip route add 10.100.100.96/27 dev rededocker
 ```
 
+## Docker CLI
+**Executar Containers**
+
+COMANDO | DESCRIÇÃO
+---|---
+`docker run IMAGEM` | Iniciar um novo container
+`docker run --name CONTAINER IMAGEM` | Iniciar um novo container e atribuir um nome
+`docker run -p PORTAHOST:PORTACONTAINER IMAGEM` | Iniciar um novo container com portas mapeadas
+`docker run -P IMAGEM` | Iniciar um novo container e mapear todas as portas
+
+**Gerenciamento de Containers:**
+
+COMANDO | DESCRIÇÃO
+---|---
+`docker create IMAGEM` | Criar um novo container
+`docker start CONTAINER` | Iniciar um container
+`docker stop CONTAINER` | Parar um container com graça
+`docker kill CONTAINER` | Encerrar (SIGKILL) um container
+`docker restart CONTAINER` | Parar e reiniciar um container com graça
+`docker pause CONTAINER` | Suspender um container
+`docker unpause CONTAINER` | Retomar um container
+`docker rm CONTAINER` | Destruir um container
+
+**Gerenciamento em Lote de Containers**
+
+COMANDO | DESCRIÇÃO
+---|---
+`docker stop $(docker ps -q)` | Parar todos os containers em execução
+`docker stop $(docker ps -a -q)` | Parar todos os containers, tanto os em execução quanto os parados
+`docker kill $(docker ps -q)` | Encerrar todos os containers em execução
+`docker kill $(docker ps -a -q)` | Encerrar todos os containers, tanto os em execução quanto os parados
+`docker restart $(docker ps -q)` | Reiniciar todos os containers em execução
+`docker restart $(docker ps -a -q)` | Reiniciar todos os containers, tanto os em execução quanto os parados
+`docker rm $(docker ps -q)` | Destruir todos os containers em execução
+`docker rm $(docker ps -a -q)` | Destruir todos os containers, tanto os em execução quanto os parados
+`docker pause $(docker ps -q)` | Pausar todos os containers em execução
+`docker pause $(docker ps -a -q)` | Pausar todos os containers, tanto os em execução quanto os parados
+`docker start $(docker ps -q)` | Iniciar todos os containers em execução
+`docker start $(docker ps -a -q)` | Iniciar todos os containers, tanto os em execução quanto os parados
+`docker rm -vf $(docker ps -a -q)` | Excluir todos os containers, incluindo seus volumes
+`docker rmi -f $(docker images -a -q)` | Excluir todas as imagens
+`docker system prune` | Excluir todas as imagens, containers, cache e volumes sem uso
+`docker system prune -a` | Excluir todas as imagens utilizadas e não utilizadas
+`docker system prune --volumes` | Excluir todos os volumes do Docker
+
+**Inspecionar Containers:**
+
+COMANDO | DESCRIÇÃO
+---|---
+`docker ps` | Listar containers em execução
+`docker ps -a` | Listar todos os containers, incluindo os parados
+`docker logs CONTAINER` | Mostrar a saída de um container
+`docker logs -f CONTAINER` | Acompanhar a saída de um container
+`docker top CONTAINER` | Listar os processos em execução em um container
+`docker diff` | Mostrar as diferenças com a imagem (arquivos modificados)
+`docker inspect` | Mostrar informações de um container (formato json)
+
+**Executar Comandos:**
+
+COMANDO | DESCRIÇÃO
+---|---
+`docker attach CONTAINER` | Anexar-se a um container
+`docker cp CONTAINER:CAMINHO CAMINHOHOST` | Copiar arquivos do container para o host
+`docker cp CAMINHOHOST CONTAINER:CAMINHO` | Copiar arquivos do host para o container
+`docker export CONTAINER` | Exportar o conteúdo do container (arquivo tar)
+`docker exec CONTAINER` | Executar um comando dentro de um container
+`docker exec -it CONTAINER /bin/bash` | Abrir um shell interativo dentro de um container (em algumas imagens, não há bash, use /bin/sh)
+`docker wait CONTAINER` | Aguardar até que o container seja encerrado e retornar o código de saída
+
+**Imagens:**
+
+COMANDO | DESCRIÇÃO
+---|---
+`docker images` | Listar todas as imagens locais
+`docker history IMAGEM` | Mostrar o histórico da imagem
+`docker inspect IMAGEM` | Mostrar informações (formato json)
+`docker tag IMAGEM TAG` | Adicionar uma tag a uma imagem
+`docker commit CONTAINER IMAGEM` | Criar uma imagem (a partir de um container)
+`docker import URL` | Criar uma imagem (a partir de um arquivo tarball)
+`docker rmi IMAGEM` | Excluir imagens
+`docker pull REPO:[TAG]` | baixar uma imagem/repositório de um registro
+`docker push REPO:[TAG]` | enviar uma imagem/repositório para um registro
+`docker search TEXTO` | Pesquisar uma imagem no registro oficial
+`docker login` | Fazer login em um registro
+`docker logout` | Fazer logout de um registro
+`docker save REPO:[TAG]` | Exportar uma imagem/repositório como arquivo tarball
+`docker load` | Carregar imagens de um arquivo tarball
+
+**Volumes:**
+
+COMANDO | DESCRIÇÃO
+---|---
+`docker volume ls` | Listar todos os volumes
+`docker volume create VOLUME` | Criar um volume
+`docker volume inspect VOLUME` | Mostrar informações (formato json)
+`docker volume rm VOLUME` | Destruir um volume
+`docker volume ls --filter="dangling=true"` | Listar todos os volumes pendentes (não referenciados por
+
+ nenhum container)
+`docker volume prune` | Excluir todos os volumes não referenciados por nenhum container
+
+### Backup de um container
+Fazer backup dos dados do Docker de dentro dos volumes do container e empacotá-los em um arquivo tarball.
+`docker run --rm --volumes-from CONTAINER -v $(pwd):/backup busybox tar cvfz /backup/backup.tar CAMINHODOCONTAINER`
+
+Um backup automatizado também pode ser feito por meio deste [playbook Ansible](https://github.com/thedatabaseme/docker_backup).
+A saída também é um arquivo tar (comprimido). O playbook também pode gerenciar a retenção do backup.
+Portanto, backups antigos serão excluídos automaticamente.
+
+Para também criar e fazer backup da configuração do container em si, você pode usar o `docker-replay` para isso. Se você perder
+o container inteiro, você pode recriá-lo com a exportação do `docker-replay`.
+Um tutorial mais detalhado sobre como usar o `docker-replay` pode ser encontrado [aqui](https://thedatabaseme.de/2022/03/18/shorty-generate-docker-run-commands-using-docker-replay/).
+
+### Restaurar container a partir do backup
+Restaurar o volume com um arquivo tarball.
+`docker run --rm --volumes-from CONTAINER -v $(pwd):/backup busybox sh -c "cd CAMINHODOCONTAINER && tar xvf /backup/backup.tar --strip 1"`
+## Redes
+
+## Solução de Problemas
+### Rede
+`docker run --name netshoot --rm -it nicolaka/netshoot /bin/bash`
+"
+
+
 # Rede Social
 
 Me pague um Café - https://www.buymeacoffee.com/kelseysantos<br>
