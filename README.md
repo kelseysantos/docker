@@ -1,9 +1,10 @@
+# Docker Containers
+
 Aplicações em Docker ![Docker](https://img.shields.io/github/stars/kelseysantos/docker?style=flat-square)
-==================
 
-Projetos para aplicações em Docker, lembrando que as redes aqui configuradas, são meramente ficticias não existentes.
+Projetos para aplicações em Docker.
 
-# Final. Dicas/Comandos Docker
+# Dicas/Comandos Docker
 
 |   Nome    |   Comando |   Observação  |
 |   -   |   -   |   -   |
