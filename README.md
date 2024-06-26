@@ -6,15 +6,35 @@ Projetos para aplicações em Docker.
 
 # Dicas/Comandos Docker
 
-|   Nome    |   Comando |   Observação  |
-|   -   |   -   |   -   |
-| Compose | ``` sudo curl -L "https://github.com/docker/compose/releases/download/v2.28.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose;chmod +x /usr/local/bin/docker-compose ``` | Atualização do Docker Compose para ultima versão https://github.com/docker/compose/releases/ |
-|   Network |   ``` docker inspect --format='{{ $n := .Name }}{{range .NetworkSettings.Networks}}{{ print .IPAddress "\t" $n "\n"}}{{end}}' $(sudo docker ps -q) ```  |   Visualizar os IPs que os Container pegou    |
-|   Health  |   ``` docker ps --filter "health=none" --format '{{.ID}} \t {{.Names}}'   ``` |   Verificar se o Container tem o healthcheck no código    |
-|   Audit   |   ``` find . -type f -name "docker-compose.yml" -exec grep -H "TZ=" {} \; ``` |   Verificar a Variável `TZ` dentro de um arquivo `*.yml`  |
-|   IMAGE   |   ``` docker rmi $(docker images | cut -d 'R' -f 1 | cut -b 34-46) ```    |   Deletar Imagens que não estão sendo usadas ou rodando  |
-
- - Crie o arquivo **daemon.jon** caso não existir, e adicione as linas abaixo.
+ - Para instalar o Docker Compose, para verificar a versão atual, entrar neste [LINK](https://github.com/docker/compose/releases).
+ ```shell
+curl -L "https://github.com/docker/compose/releases/download/v2.28.1/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose;chmod +x /usr/local/bin/docker-compose
+```
+Caso não saiba qual a versão usar:
+```shell
+curl -L "https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose;chmod +x /usr/local/bin/docker-compose
+```
+Versão para Linux Armv7 - Atualmente Storages **Asustor**
+```shell
+curl -L "https://github.com/docker/compose/releases/download/v2.23.0/docker-compose-linux-armv7" -o /usr/local/bin/docker-compose;chmod +x /usr/local/bin/docker-compose
+```
+Verificar os IPs dos Containers
+```shell
+docker inspect --format='{{ $n := .Name }}{{range .NetworkSettings.Networks}}{{ print .IPAddress "\t" $n "\n"}}{{end}}' $(sudo docker ps -q)
+```
+Verificar se o Container tem o healthcheck no código
+```shell
+docker ps --filter "health=none" --format '{{.ID}} \t {{.Names}}'
+```
+Verificar a Variável `TZ` dentro de um arquivo `*.yml`
+```shell
+find . -type f -name "docker-compose.yml" -exec grep -H "TZ=" {} \;
+```
+Deletar Imagens que não estão sendo usadas ou rodando
+```shell
+docker rmi $(docker images | cut -d 'R' -f 1 | cut -b 34-46)
+```
+Crie o arquivo **daemon.jon** caso não existir, e adicione as linas abaixo.
 ```shell
 nano /etc/docker/daemon.json
 
