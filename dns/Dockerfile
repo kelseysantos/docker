@@ -1,4 +1,4 @@
-FROM rockylinux:9.0
+FROM rockylinux:9.1.20221123
 
 WORKDIR /dns
 
