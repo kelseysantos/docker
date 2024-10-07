@@ -89,6 +89,97 @@ ip link set rededocker up
 ip route add 10.100.100.96/27 dev rededocker
 ```
 
+### Apagar todos os volumes não utilizados
+```shell
+docker volume rm $(docker volume ls | cut -d R -f 1 | cut -b 11-200)
+```
+### Deletar as imagens não utilizadas do Docker
+```shell
+docker rmi $(docker images -aq)
+```
+
+#### Acessar container bash
+ - Acessando o Container normalmente para executar um comando interno.
+```shell
+docker exec -it f9c42966a0b3 bash
+```
+ - Acessando o Container que está em execução como root no sintax **-uroot**, o exemplo: **f9c42966a0b3**.
+```shell
+docker exec -it -uroot f9c42966a0b3 bash
+```
+#### Configurar outra network para o DOKCER
+ - Alterar a rede default redefinindo o range de IPs do Docker.
+```shell
+docker -v
+# Docker version 23.0.1, build a5ee5b1
+```
+#### Limpar container e imagens não usadas
+ - Limpando maquinas remotamente.
+```
+ssh 10.8.4.172 'docker system prune -f -a';ssh 10.8.4.173 'docker system prune -f -a';ssh 10.8.4.182 'docker system prune -f -a';ssh 10.8.4.183 'docker system prune -f -a'
+```
+
+ - Crie o arquivo **daemon.jon** caso não existir, e adicione as linas abaixo.
+```shell
+nano /etc/docker/daemon.json
+
+# Add lines:
+
+{
+  "default-address-pools":
+  [
+    {"base":"10.10.0.0/16","size":24}
+  ]
+}
+```
+ - Restart o Serviço docker
+```shell
+systemctl restart docker
+```
+ - Verifique se a mudança deu certo
+```shell
+docker network inspect bridge | grep Subnet
+```
+
+
+#### Exemplo de default gateway interno e externo
+```yaml
+version: "3.9"
+
+services:
+  webserver:
+    build:
+      context: ./bin/${PHPVERSION}
+    container_name: "${COMPOSE_PROJECT_NAME}-${PHPVERSION}"
+    ...
+    networks:
+      - default    # network outside
+      - internal   # network internal
+  database:
+    build:
+      context: "./bin/${DATABASE}"
+    container_name: "${COMPOSE_PROJECT_NAME}-${DATABASE}"
+    ...
+    networks:
+      - internal   # network internal
+#NETWORKs
+networks:
+  default:
+    external: true
+    name: nginx-proxy-man
+  internal:
+    internal: true
+```
+#### Certificados gerando pelo certbot
+ - Gerando um certificado para o dominio servicos.cuiaba.br.
+```
+certbot certonly --manual --preferred-challenges=dns --email atendimento@servicos.cuiaba.br --server https://acme-v02.api.letsencrypt.org/directory --agree-tos -d *.servicos.cuiaba.br
+certbot certificates
+cat /etc/letsencrypt/live/servicos.cuiaba.br/fullchain.pem /etc/letsencrypt/live/servicos.cuiaba.br/privkey.pem > /etc/ssl/servicos.cuiaba.br.pem
+ssl crt /etc/ssl/servicos.cuiaba.br.pemssl crt /etc/ssl/servicos.cuiaba.br.pem
+```
+
+
 ## Docker CLI
 **Executar Containers**
 
