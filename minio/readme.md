@@ -1,3 +1,3 @@
-# Contacte para saber mais
+# Saber mais
 
-![kelseysantoscontato](https://i.postimg.cc/kM2HnLcn/image.png)
+[kelseysantoscontato](https://i.postimg.cc/kM2HnLcn/image.png)
