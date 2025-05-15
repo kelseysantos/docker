@@ -8,15 +8,15 @@ Aplicações em Docker ![Docker](https://img.shields.io/github/stars/kelseysanto
 
  - Para instalar o Docker Compose, para verificar a versão atual, entrar neste [LINK](https://github.com/docker/compose/releases).
  ```shell
-curl -L "https://github.com/docker/compose/releases/download/v2.28.1/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose;chmod +x /usr/local/bin/docker-compose
+curl -L "https://github.com/docker/compose/releases/download/v2.36.0/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose;chmod +x /usr/local/bin/docker-compose
 ```
 Caso não saiba qual a versão usar:
 ```shell
-curl -L "https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose;chmod +x /usr/local/bin/docker-compose
+curl -L "https://github.com/docker/compose/releases/download/v2.36.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose;chmod +x /usr/local/bin/docker-compose
 ```
 Versão para Linux Armv7 - Atualmente Storages **Asustor**
 ```shell
-curl -L "https://github.com/docker/compose/releases/download/v2.23.0/docker-compose-linux-armv7" -o /usr/local/bin/docker-compose;chmod +x /usr/local/bin/docker-compose
+curl -L "https://github.com/docker/compose/releases/download/v2.36.0/docker-compose-linux-armv7" -o /usr/local/bin/docker-compose;chmod +x /usr/local/bin/docker-compose
 ```
 ### Instalando o Kubectl e Helm
  - Para instalar o `kubectl` precisa executar os comando abaixo:
