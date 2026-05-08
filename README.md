@@ -11,13 +11,13 @@ Instalação Docker Compose [Site para verificar a versão.](https://github.com/
 ```shell
 curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep 'tag_name' | cut -d\" -f4)/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose
 ```
+ou:
+```shell
+curl -L "https://github.com/docker/compose/releases/download/v2.36.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose;chmod +x /usr/local/bin/docker-compose
+```
  - Para instalar o Docker Compose, colocando a versão manualmente a versão - ![GitHub Release](https://img.shields.io/github/v/release/docker/compose)
  ```shell
 curl -L "https://github.com/docker/compose/releases/download/v5.1.3/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose;chmod +x /usr/local/bin/docker-compose
-```
-Caso não saiba qual a versão usar:
-```shell
-curl -L "https://github.com/docker/compose/releases/download/v2.36.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose;chmod +x /usr/local/bin/docker-compose
 ```
 Versão para Linux Armv7 - Atualmente Storages **Asustor**
 ```shell
